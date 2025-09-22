@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\StockMovement;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -18,7 +19,14 @@ class StockMovementController extends Controller
      */
     public function index()
     {
-        $stocks = StockMovement::query()->with(['product:id,name', 'recordedBy:id,name,role'])->get();
+        $stocks = StockMovement::query()
+            ->with([
+                'product:id,name,user_id',
+                'recordedBy:id,name,role',
+            ])
+            ->get();
+
+
         return view('backend.stock.index', [
             'stocks' => $stocks
         ]);
@@ -58,7 +66,7 @@ class StockMovementController extends Controller
 
                 $product->stockMovements()->create([
                     ...$validated,
-                    'user_id' => auth()->id(),
+                    'user_id' => Auth::id(),
                 ]);
 
                 $currentStock = $validated['type'] === StockMovementType::IN->value
