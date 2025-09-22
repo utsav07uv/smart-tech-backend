@@ -76,7 +76,7 @@
                                     </td>
                                     <td>{{ $product->name }}</td>
                                     <td>{{ $product->category?->name }}</td>
-                                    <td>{{ $product->price }}</td>
+                                    <td>AUD {{ $product->price }}</td>
                                     <td>{{ $product->discount }}</td>
                                     <td>{{ $product->stock }}</td>
                                     <td>

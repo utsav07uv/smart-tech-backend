@@ -84,9 +84,12 @@ class StockMovementController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $stock = StockMovement::with(['product', 'recordedBy'])->findOrFail($id);
+        return view('backend.stock.show', [
+            'stock' => $stock,
+        ]);
     }
 
     /**

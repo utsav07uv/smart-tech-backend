@@ -61,4 +61,8 @@ class Product extends Model
             get: fn($value) => $value ? array_map(fn ($item) => Storage::disk('public')->url($item) ,json_decode($value)) : [],
         );
     }
+
+    public function seller() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            User Details
+            Product Detail
         </h2>
     </x-slot>
 
@@ -9,14 +9,15 @@
         <div class="max-w-7xl mx-auto lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                     <div class="max-w-xl">
                         <section>
                             <header>
                                 <h2 class="text-lg font-medium text-gray-900">
-                                    User Information
+                                    Product Information
                                 </h2>
                                 <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    This is some information about the user.
+                                    This is some information about the product.
                                 </p>
                             </header>
 
@@ -24,11 +25,11 @@
                                 <dl class="sm:divide-y sm:divide-gray-200">
                                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Avatar
+                                            Image
                                         </dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            <img class="w-20 h-20 rounded-sm" src="{{ $user->avatar }}"
-                                                alt="{{ $user->name }}">
+                                            <img class="w-20 h-20 rounded-sm" src="{{ $product?->image }}"
+                                                alt="{{ $product?->name }}">
                                         </dd>
                                     </div>
                                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
@@ -36,69 +37,106 @@
                                             Name
                                         </dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {{ $user->name }}
+                                            {{ $product?->name ?? 'N/A' }}
                                         </dd>
                                     </div>
                                     <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                                         <dt class="text-sm font-medium text-gray-500">
-                                            Email address
+                                            Price
                                         </dt>
                                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {{ $user->email }}
+                                            <span>AUD {{ $product->price ?? 0 }}</span> <span class="text-amber-500 ms-4">{{ $product->discount ?? 0 }} % discount</span>
                                         </dd>
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Phone number
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            {{ $user->phone ?? 'N/A' }}
-                                        </dd>
-                                    </div>
-                                    {{-- <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Address
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            123 Main St<br>
-                                            Anytown, USA 12345
-                                        </dd>
-                                    </div> --}}
-                                </dl>
-                            </div>
 
-                            <div class="flex items-center gap-4 mt-4">
-                                @if (!$user->isApproved())
-                                    <form action="{{ route('admin.user.login.approve', $user->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit"
-                                            class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Approve
-                                            Account</button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('admin.user.login.disable', $user->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit"
-                                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Disable
-                                            Account</button>
-                                    </form>
-                                @endif
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Category
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->category?->name ?? 'N/A' }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Stock
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->stock ?? 0 }}
+                                        </dd>
+                                    </div>
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Color
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->color ?? 'N/A' }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Size
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->size ?? 'N/A' }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Model
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->model ?? 'N/A' }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            SKU
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->sku ?? 'N/A' }}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Description
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {!! str()->limit($product->description, 150) ?? 'N/A' !!}
+                                        </dd>
+                                    </div>
+
+                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Seller
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            {{ $product->seller?->name }}<br>
+                                            <p class="text-xs italic">({{ $product->seller?->role->label() }})</p>
+                                        </dd>
+                                    </div>
+                                </dl>
                             </div>
                         </section>
                     </div>
+
                     <div>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900">
-                                Documents
+                                Images
                             </h2>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                User uploaded documents
+                                Product related images
                             </p>
                         </header>
-                        @if ($user->documents)
+                        @if ($product->images)
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-
-                                @foreach ($user->documents as $item)
+                                @foreach ($product->images as $item)
                                     @php
                                         $ext = strtolower(pathinfo($item, PATHINFO_EXTENSION));
                                         $imageExt = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
@@ -120,7 +158,7 @@
                                 @endforeach
                             </div>
                         @else
-                            <div class="text-sm text-gray-500 sm:my-10 md:mt-10 text-center">No documents uploaded.</div>
+                            <div class="text-sm text-gray-500 sm:my-10 md:mt-10 text-center">No images uploaded.</div>
                         @endif
                     </div>
                 </div>
