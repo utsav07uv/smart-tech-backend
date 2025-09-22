@@ -140,7 +140,7 @@ class UserController extends Controller
 
             return redirect()->route('admin.user.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to create.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -159,7 +159,7 @@ class UserController extends Controller
 
             return redirect()->route('admin.user.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to approve.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -178,7 +178,7 @@ class UserController extends Controller
 
             return redirect()->route('admin.user.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to disable.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }

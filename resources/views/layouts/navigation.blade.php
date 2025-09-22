@@ -26,8 +26,8 @@
                         Products
                     </x-nav-link>
                 
-                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
-                        Stocks
+                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
+                        Stock Records
                     </x-nav-link>
 
                 </div>

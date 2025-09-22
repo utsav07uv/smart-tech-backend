@@ -143,7 +143,7 @@ class ProductController extends Controller
             
             return redirect()->route('product.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to update product.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return back()->withInput();
         }
     }
@@ -167,7 +167,7 @@ class ProductController extends Controller
 
             return redirect()->route('product.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to create.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -186,7 +186,7 @@ class ProductController extends Controller
 
             return redirect()->route('product.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to toggle.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }

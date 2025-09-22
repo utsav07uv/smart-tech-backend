@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StockMovementType;
 use Illuminate\Database\Eloquent\Model;
 
 class StockMovement extends Model
@@ -15,12 +16,19 @@ class StockMovement extends Model
         'user_id'
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'type' => StockMovementType::class,
+        ];
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
-    public function user()
+    public function recordedBy()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

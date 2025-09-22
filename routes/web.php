@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,7 @@ Route::middleware(['auth', 'role:seller,admin'])->group(function(){
     Route::resource('category', CategoryController::class)->names('category');
     Route::post('product/toggle/{id}', [ProductController::class, 'toggle'])->name('product.toggle');
     Route::resource('product', ProductController::class)->names('product');
+    Route::resource('stock', StockMovementController::class)->names('stock');
 });
 
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->as('seller.')->group(function(){

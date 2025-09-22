@@ -18,8 +18,8 @@ enum StockMovementType: string
     public function color(): string
     {
         return match ($this) {
-            self::IN => 'text-green-500',
-            self::OUT => 'text-red-500',
+            self::IN => 'bg-green-50 text-green-500',
+            self::OUT => 'bg-red-50 text-red-500',
         };
     }
 

@@ -58,7 +58,7 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to create.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -112,7 +112,7 @@ class CategoryController extends Controller
             
             return redirect()->route('category.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to update category.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return back()->withInput();
         }
     }
@@ -135,7 +135,7 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to create.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -154,7 +154,7 @@ class CategoryController extends Controller
 
             return redirect()->route('category.index');
         } catch (\Throwable $th) {
-            toastr()->error('Failed to toggle.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }

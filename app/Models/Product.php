@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\ProductScope;
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
+#[ScopedBy(ProductScope::class)]
 class Product extends Model
 {
     protected $fillable = [
