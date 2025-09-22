@@ -19,6 +19,14 @@ return new class extends Migration
 
             $table->longText('description')->nullable();
 
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
+
+            $table->string('sku')->nullable();
+            $table->string('model')->nullable();
+
+            $table->unsignedBigInteger('stock')->default(0);
+
             $table->decimal('price', 10, 2);
             $table->unsignedTinyInteger('discount')->nullable(); 
 
@@ -26,6 +34,7 @@ return new class extends Migration
             $table->json('images')->nullable();
 
             $table->unsignedBigInteger('category_id')->nullable();
+            $table->unsignedBigInteger('section_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->unsignedInteger('status')->default(0);

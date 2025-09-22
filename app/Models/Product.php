@@ -12,11 +12,17 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'color',
+        'size',
+        'sku',
+        'model',
+        'stock',
         'price',
         'discount',
         'image',
         'images',
         'category_id',
+        'section_id',
         'user_id',
         'status',
         'order',
@@ -34,9 +40,9 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
-    public function productVariants()
+    public function stockMovements()
     {
-        return $this->hasMany(ProductVariant::class, 'product_id', 'id');
+        return $this->hasMany(StockMovement::class, 'product_id', 'id');
     }
 
     protected function image(): Attribute

@@ -18,7 +18,7 @@ if (! function_exists('upload_multiple_images')) {
         $filesPath = [];
 
         foreach ($files as $file) {
-            $fileName = uniqid().'.'.$file->getClientOriginalExtension();
+            $fileName = uniqid() . '.' . $file->getClientOriginalExtension();
             $filesPath[] = Storage::disk('public')->putFileAs($path, $file, $fileName);
         }
 
@@ -31,6 +31,19 @@ if (! function_exists('delete_file_if_exists')) {
     {
         if (Storage::disk($disk)->exists($path)) {
             return Storage::disk($disk)->delete($path);
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('delete_files_if_exists')) {
+    function delete_files_if_exists(array $paths, string $disk = 'public'): bool
+    {
+        foreach ($paths as $path) {
+            if (Storage::disk($disk)->exists($path)) {
+                return Storage::disk($disk)->delete($path);
+            }
         }
 
         return false;

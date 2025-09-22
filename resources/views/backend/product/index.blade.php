@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Category
+            Product
         </h2>
     </x-slot>
 
@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="flex items-center justify-end my-2">
-                <x-link :href="route('category.create')">Create</x-link>
+                <x-link :href="route('product.create')">Create</x-link>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <table id="category-table">
+                    <table id="product-table">
                         <thead>
                             <tr>
                                 <th>
@@ -31,9 +31,34 @@
 
                                 <th>
                                     <span class="flex items-center">
+                                        Category
+                                    </span>
+                                </th>
+
+                                <th>
+                                    <span class="flex items-center">
+                                        Price
+                                    </span>
+                                </th>
+
+                                <th>
+                                    <span class="flex items-center">
+                                        Discount
+                                    </span>
+                                </th>
+
+                                <th>
+                                    <span class="flex items-center">
+                                        Stock
+                                    </span>
+                                </th>
+
+                                <th>
+                                    <span class="flex items-center">
                                         Status
                                     </span>
                                 </th>
+
                                 <th>
                                     <span class="flex items-center">
                                         Action
@@ -43,28 +68,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($products as $product)
                                 <tr>
                                     <td>
-                                        <img class="w-10 h-10 rounded-sm" src="{{ $category->image }}"
-                                            alt="{{ $category->name }}">
+                                        <img class="w-10 h-10 rounded-sm" src="{{ $product->image }}"
+                                            alt="{{ $product->name }}">
                                     </td>
-                                    <td>{{ $category->name }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>{{ $product->category?->name }}</td>
+                                    <td>{{ $product->price }}</td>
+                                    <td>{{ $product->discount }}</td>
+                                    <td>{{ $product->stock }}</td>
                                     <td>
                                         <span
-                                            class="{{ $category->status === 1 ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"}} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{ $category->status === 1 ? "Published" : "Draft" }}</span>
+                                            class="{{ $product->status === 1 ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300" : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"}} text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{ $product->status === 1 ? "Published" : "Draft" }}</span>
                                     </td>
                                     <td>
                                         <div class="flex gap-2">
-                                            <a href="{{ route('category.edit', $category->id) }}">
+                                            <a href="{{ route('product.edit', $product->id) }}">
                                                 <i class="fa-solid fa-pen-to-square text-emerald-500"></i>
                                             </a>
 
-                                            <a href="{{ route('category.show', $category->id) }}">
+                                            <a href="{{ route('product.show', $product->id) }}">
                                                 <i class="fa-solid fa-eye text-blue-500"></i>
                                             </a>
 
-                                            <form action="{{ route('category.toggle', $category->id) }}" method="POST">
+                                            <form action="{{ route('product.toggle', $product->id) }}" method="POST">
                                                 @csrf
                                                 <button type="submit">
                                                     <i class="fa-solid fa-toggle-on text-amber-500 cursor-pointer"></i>
@@ -104,10 +133,9 @@
                                                             </svg>
                                                             <h3
                                                                 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                                Are you sure you want to delete this category?</h3>
+                                                                Are you sure you want to delete this product?</h3>
                                                             <div class="flex justify-center gap-3">
-                                                                <form
-                                                                    action="{{ route('category.destroy', $category->id) }}"
+                                                                <form action="{{ route('product.destroy', $product->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method("DELETE")
@@ -141,8 +169,8 @@
     @push('js')
         <script>
 
-            if (document.getElementById("category-table") && typeof simpleDatatables.DataTable !== 'undefined') {
-                const dataTable = new simpleDatatables.DataTable("#category-table", {
+            if (document.getElementById("product-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+                const dataTable = new simpleDatatables.DataTable("#product-table", {
                     paging: true,
                     perPage: 10,
                     perPageSelect: [10, 25, 50, 250, 500],

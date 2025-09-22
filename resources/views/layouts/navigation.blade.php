@@ -18,15 +18,20 @@
                     <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
                         Users
                     </x-nav-link>
-                    
+
                     <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                         Categories
                     </x-nav-link>
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         Products
                     </x-nav-link>
-                </div>
                 
+                    <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
+                        Stocks
+                    </x-nav-link>
+
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->

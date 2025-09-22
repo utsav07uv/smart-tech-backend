@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StockMovementType;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,9 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Product::query()->get();
+        $products = Product::query()->with('category:id,name')->get();
         return view('backend.product.index', [
-            'categories' => $categories
+            'products' => $products
         ]);
     }
 
@@ -34,8 +35,17 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'image' => ['required', 'file']
+            'description' => ['required', 'string'],
+            'color' => ['required_without:size'],
+            'size' => ['required_without:color'],
+            'sku' => ['required', 'string'],
+            'model' => ['nullable', 'string'],
+            'price' => ['required'],
+            'discount' => ['required'],
+            'category_id' => ['required', 'integer'],
+            'section_id' => ['required', 'integer'],
+            'image' => ['required', 'file'],
+            'images' => ['nullable', 'array'],
         ]);
 
         try {
@@ -44,12 +54,18 @@ class ProductController extends Controller
                 $filePath = upload_image($request->image, 'uploads/product');
             }
 
+            if ($request->hasFile('images')) {
+                $filesPath = upload_multiple_images($request->images, 'uploads/product');
+            }
+
             $input = [
                 ...$validated,
                 'slug' => Str::slug($validated['name']),
                 'status' => 1,
                 'order' => (Product::max('order') ?? 0) + 1,
-                'image' => $filePath
+                'image' => $filePath ?? null,
+                'images' => $filesPath ?? null,
+                'user_id' => auth()->id(),
             ];
 
             Product::query()->create($input);
@@ -57,8 +73,9 @@ class ProductController extends Controller
             toastr()->success('Product created successfully.');
 
             return redirect()->route('product.index');
+
         } catch (\Throwable $th) {
-            toastr()->error('Failed to create.', $th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back()->withInput();
         }
     }
@@ -87,10 +104,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name'        => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'image'       => ['nullable', 'file'],
+         $validated = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
+            'color' => ['required_without:size'],
+            'size' => ['required_without:color'],
+            'sku' => ['required', 'string'],
+            'model' => ['nullable', 'string'],
+            'price' => ['required'],
+            'discount' => ['required'],
+            'category_id' => ['required', 'integer'],
+            'section_id' => ['required', 'integer'],
+            'image' => ['nullable', 'file'],
+            'images' => ['nullable', 'array'],
         ]);
 
         try {
@@ -104,6 +130,11 @@ class ProductController extends Controller
             if ($request->hasFile('image')) {
                 $input['image'] = upload_image($request->file('image'), 'uploads/product');
                 delete_file_if_exists($product->getRawOriginal('image'));
+            }
+
+            if ($request->hasFile('images')) {
+                $input['images'] = upload_multiple_images($request->file('images'), 'uploads/product');
+                delete_files_if_exists($product->getRawOriginal('images'));
             }
 
             $product->update($input);
@@ -128,6 +159,7 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
 
             delete_file_if_exists($product->getRawOriginal('image'));
+            delete_files_if_exists($product->getRawOriginal('images'));
 
             $product->delete();
 
