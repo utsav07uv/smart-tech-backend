@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'role:seller,admin'])->group(function(){
     Route::post('product/toggle/{id}', [ProductController::class, 'toggle'])->name('product.toggle');
     Route::resource('product', ProductController::class)->names('product');
     Route::resource('stock', StockMovementController::class)->names('stock');
+    Route::post('ad/toggle/{id}', [AdController::class, 'toggle'])->name('ad.toggle');
+    Route::resource('ad', AdController::class)->names('ad');
 });
 
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->as('seller.')->group(function(){

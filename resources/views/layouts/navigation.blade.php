@@ -15,20 +15,35 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         Dashboard
                     </x-nav-link>
+
                     <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
                         Users
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('ad.index')" :active="request()->routeIs('ad.index')">
+                        Ads
                     </x-nav-link>
 
                     <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
                         Categories
                     </x-nav-link>
+
                     <x-nav-link :href="route('product.index')" :active="request()->routeIs('product.index')">
                         Products
                     </x-nav-link>
-                
+
                     <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
                         Stock Records
                     </x-nav-link>
+
+                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
+                        Orders
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
+                        Payments
+                    </x-nav-link>
+
 
                 </div>
 
