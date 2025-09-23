@@ -1,0 +1,82 @@
+.category-shop .cat-slider .cat-info .cat-img-text a img{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+.slider-content .home-slider .slider-image-info .slider-image .desk-img{
+    height: 500px;
+}
+.slider-content .home-slider .slider-image-info .slider-text-content .slider-text-info .slider-subtitle span{
+color:var(--secondary-font-color);
+}
+.slider-content .home-slider .slider-image-info .slider-image .mobile-img{
+   height: 300px;
+}
+/*====================================
+   form-fill css
+====================================*/
+ul.form-fill {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -25px 0px 0px -30px;
+}
+ul.form-fill li.form-fill-li {
+    width: calc(100% - 30px);
+    margin: 25px 0px 0px 30px;
+}
+ul.form-fill li.name, 
+ul.form-fill li.email {
+    width: calc(50% - 30px);
+}
+ul.form-fill li.form-fill-li label {
+    display: block;
+    color: var(--heading-font-color);
+    font-weight: 600;
+    cursor: auto;
+    margin: 0px 0px 12px;
+}
+ul.form-fill li.form-fill-li input, 
+ul.form-fill li.form-fill-li textarea {
+    width: 100%;
+}
+ul.form-fill li.form-fill-li input {
+    height: 45px;
+}
+@media (max-width: 767px) {
+    ul.form-fill {
+        margin: -25px 0px 0px -12px;
+    }
+    ul.form-fill li.form-fill-li {
+        width: calc(100% - 12px);
+        margin: 25px 0px 0px 12px;
+    }
+    ul.form-fill li.name, 
+    ul.form-fill li.email {
+        width: calc(50% - 12px);
+    }
+}
+@media (max-width: 600px) {
+    ul.form-fill li.name, 
+    ul.form-fill li.email {
+        width: calc(100% - 12px);
+    }
+}
+.categor-menu .catwrap ul.main-menu li.menu-link a.link-title img{
+    height: 28px;
+    width: 28px;
+    object-fit: contain;
+}
+.banner-grid .banner-content ul.banner-ul li.banner-li .banner-wrap a img{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    margin-left: 100px;
+    z-index: 10;
+    mix-blend-mode: multiply;
+    padding: 25px 0;
+
+}
+.banner-grid .banner-content ul.banner-ul li.banner-li .banner-wrap{
+background-color: antiquewhite;
+}
+ 
