@@ -37,22 +37,21 @@
                         <!-- account login start  -->
                         <div class="log-acc-page">
                             <div class="contact-form-list">
-                                <form method="post">
+                                <form method="post" action="{{  route('login') }}">
+                                    @csrf
                                     <ul class="form-fill">
                                         <li class="form-fill-li Email" data-animate="animate__fadeInUp">
                                             <label>Email address</label>
-                                            <input type="email" name="q" autocomplete="email" placeholder="Email address">
+                                            <input type="email" name="email" autocomplete="email" placeholder="Email address" required autofocus>
                                         </li>
                                         <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                             <label>Password</label>
-                                            <input type="tel" name="q" placeholder="Password">
+                                            <input type="password" name="password" placeholder="Password" required autofocus>
                                         </li>
                                     </ul>
                                     <div class="form-action-button" data-animate="animate__fadeInUp">
                                         <div class="button-forget">
                                             <button type="submit" class="btn btn-style2">Sign in</button>
-                                            <a href="javascript:void(0)" onclick="myFunction()">Forgot your
-                                                password?</a>
                                         </div>
                                     </div>
                                 </form>
@@ -65,59 +64,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="log-acc" id="RecoverPasswordForm" style="display: none;">
-                        <!-- account title start -->
-                        <div class="content-main-title">
-                            <div class="section-capture">
-                                <div class="section-title">
-                                    <h2><span>Login account</span></h2>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- account title end -->
-                        <!-- account login start -->
-                        <div class="log-acc-page">
-                            <div class="contact-form-list">
-                                <form method="post">
-                                    <ul class="form-fill">
-                                        <li class="form-fill-li Email">
-                                            <label>Email address</label>
-                                            <input type="email" name="q" autocomplete="email" placeholder="Email address">
-                                        </li>
-                                    </ul>
-                                    <div class="form-action-button">
-                                        <div class="button-forget">
-                                            <button type="submit" class="btn btn-style2">Cancel</button>
-                                            <a href="javascript:void(0)" onclick="myFunction()">Cancel</a>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- account login end -->
-                    </div>
-                    <!-- account login start -->
+                    
                 </div>
             </div>
         </div>
-        <script>
-            function myFunction() {
-                var x = document.getElementById("RecoverPasswordForm");
-                var y = document.getElementById("CustomerLoginForm");
-                if (x.style.display === "none") {
-                    x.style.display = "block";
-                }
-                else {
-                    x.style.display = "none";
-                }
-                if (y.style.display === "none") {
-                    y.style.display = "block";
-                }
-                else {
-                    y.style.display = "none";
-                }
-            }
-        </script>
+        
     </section>
     </div>
 @endsection
