@@ -44,14 +44,14 @@
                                                 <label>Email address</label>
                                                 <input type="email" name="email" autocomplete="email"
                                                     placeholder="Email address" required autofocus>
-                                                <p class="mt-2 text-danger">{{ $errors->get('email') }}</p>
+                                                <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                                             </li>
 
                                             <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                                 <label>Password</label>
                                                 <input type="password" name="password" placeholder="Password" required
                                                     autofocus>
-                                                <p class="mt-2 text-danger">{{ $errors->get('password') }}</p>
+                                                <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                             </li>
 
                                         </ul>

@@ -49,7 +49,8 @@
                                         <label>Name</label>
                                         <input type="text" name="name" autocomplete="name" placeholder="Name" required
                                             autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('name') }}</p>
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
+
 
                                     </li>
 
@@ -57,21 +58,24 @@
                                         <label>Email address</label>
                                         <input type="email" name="email" autocomplete="email" placeholder="Email address"
                                             required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('email') }}</p>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
+
 
                                     </li>
 
                                     <li class="form-fill-li Phone number" data-animate="animate__fadeInUp">
                                         <label>Phone number</label>
                                         <input type="tel" name="phone" placeholder="Phone number" required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('phone') }}</p>
+                                        <x-input-error :messages="$errors->get('phone')" class="mt-2 text-danger" />
+
 
                                     </li>
 
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Password</label>
                                         <input type="password" name="password" placeholder="Password" required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('password') }}</p>
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2 text-danger" />
+
 
                                     </li>
 
@@ -79,21 +83,25 @@
                                         <label>Password Confirmation</label>
                                         <input type="password" name="password_confirmation"
                                             placeholder="Password Confirmation" required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('password_confirmation') }}</p>
+                                        <x-input-error :messages="$errors->get('password_confirmation')"
+                                            class="mt-2 text-danger" />
+
 
                                     </li>
 
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Logo</label>
                                         <input type="file" name="avatar" required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('avatar') }}</p>
+                                        <x-input-error :messages="$errors->get('avatar')" class="mt-2 text-danger" />
+
 
                                     </li>
 
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Documents (Registration, PAN)</label>
                                         <input type="file" name="documents[]" multiple required autofocus>
-                                        <p class="mt-2 text-danger">{{ $errors->get('documents') }}</p>
+                                        <x-input-error :messages="$errors->get('documents')" class="mt-2 text-danger" />
+
 
                                     </li>
                                 </ul>
@@ -120,7 +128,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- account login start -->
                 </div>
             </div>
         </div>
