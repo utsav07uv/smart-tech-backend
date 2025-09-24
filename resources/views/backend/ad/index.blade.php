@@ -62,7 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ads as $ad)
+                            @foreach ($ads as $index => $ad)
                                 <tr>
                                     <td>
                                         <img class="w-10 h-10 rounded-sm" src="{{ $ad->image }}" alt="{{ $ad->name }}">
@@ -93,13 +93,13 @@
                                             </form>
 
                                             <a href="javascript:void(0)">
-                                                <button data-modal-target="delete-popup-modal"
-                                                    data-modal-toggle="delete-popup-modal" type="button">
+                                                <button data-modal-target="delete-popup-modal-{{ $index }}"
+                                                    data-modal-toggle="delete-popup-modal-{{ $index }}" type="button">
                                                     <i class="fa-solid fa-trash text-red-500"></i>
                                                 </button>
                                             </a>
 
-                                            <div id="delete-popup-modal" tabindex="-1"
+                                            <div id="delete-popup-modal-{{ $index }}" tabindex="-1"
                                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                                     <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
@@ -125,20 +125,20 @@
                                                             </svg>
                                                             <h3
                                                                 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                                Are you sure you want to delete this ad?</h3>
+                                                                Are you sure you want to delete this user?</h3>
                                                             <div class="flex justify-center gap-3">
                                                                 <form action="{{ route('ad.destroy', $ad->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method("DELETE")
-                                                                    <button data-modal-hide="delete-popup-modal"
+                                                                    <button data-modal-hide="delete-popup-modal-{{ $index }}"
                                                                         type="submit"
                                                                         class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                                                                         Delete
                                                                     </button>
                                                                 </form>
 
-                                                                <button data-modal-hide="delete-popup-modal" type="button"
+                                                                <button data-modal-hide="delete-popup-modal-{{  $index }}" type="button"
                                                                     class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                                                     Cancel
                                                                 </button>

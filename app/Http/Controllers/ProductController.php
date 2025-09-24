@@ -162,7 +162,10 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
 
             delete_file_if_exists($product->getRawOriginal('image'));
-            delete_files_if_exists($product->getRawOriginal('images'));
+
+            if($product->images) {
+                delete_files_if_exists(json_decode($product->getRawOriginal('images'), true));
+            }
 
             $product->delete();
 

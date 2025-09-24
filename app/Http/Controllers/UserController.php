@@ -132,7 +132,9 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             delete_file_if_exists($user->getRawOriginal('avatar'));
-            delete_files_if_exists($user->getRawOriginal('documents'));
+            if($user->documents) {
+                delete_files_if_exists(json_decode($user->getRawOriginal('documents'), true));
+            }
 
             $user->delete();
 
