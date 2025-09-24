@@ -39,6 +39,8 @@
                             <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                                 @csrf
 
+                                <input type="hidden" name="role" value="customer">
+
                                 <ul class="form-fill">
                                     <li class="form-fill-li Name" data-animate="animate__fadeInUp">
                                         <label>Name</label>
@@ -60,6 +62,11 @@
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Password</label>
                                         <input type="text" name="password" placeholder="Password" required autofocus>
+                                    </li>
+
+                                    <li class="form-fill-li Password" data-animate="animate__fadeInUp">
+                                        <label>Password Confirmation</label>
+                                        <input type="password" name="password_confirmation" placeholder="Password Confirmation" required autofocus>
                                     </li>
                                 </ul>
                                 <div class="form-action-button">

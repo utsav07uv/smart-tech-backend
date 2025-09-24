@@ -51,7 +51,7 @@
                                     </ul>
                                     <div class="form-action-button" data-animate="animate__fadeInUp">
                                         <div class="button-forget">
-                                            <button type="submit" class="btn btn-style2">Sign in</button>
+                                            <button type="submit" class="btn btn-style2">Log in</button>
                                         </div>
                                     </div>
                                 </form>

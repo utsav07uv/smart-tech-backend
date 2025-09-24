@@ -15,8 +15,8 @@
                                         <span class="user-text">My account</span>
                                     </a>
                                     <div class="user-drower collapse" id="store-account">
-                                        <a href="login.php">Login</a>
-                                        <a href="signup.php">Register</a>
+                                        <a href="{{ route('login') }}">Login</a>
+                                        <a href="{{ route('register') }}">Register</a>
                                     </div>
                                 </div>
                             </li>
