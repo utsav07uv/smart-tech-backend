@@ -1,0 +1,12 @@
+@extends('frontend.layouts.app')
+@section('content')
+@include('frontend.pages.partials.slider')
+@include('frontend.pages.partials.service')
+@include('frontend.pages.partials.banner')
+@include('frontend.pages.partials.top-sellers')
+@include('frontend.pages.partials.recommended-products')
+@include('frontend.pages.partials.coming-soon-products')
+@include('frontend.pages.partials.custom-banner')
+@include('frontend.pages.partials.blog')
+@include('frontend.pages.partials.brand-logo')
+@endsection

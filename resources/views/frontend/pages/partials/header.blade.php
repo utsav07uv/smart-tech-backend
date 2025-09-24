@@ -96,10 +96,10 @@
                                         <div class="navbar-collapse" id="navbarContent">
                                             <!-- categor-menu start -->
                                             <div class="categor-menu">
-                                                <a href="#categor-collapse" class="cate-info <?php echo $category_collaps === true ? '' : 'collapsed' ?> " data-bs-toggle="collapse" aria-expanded="true">
+                                                <a href="#categor-collapse" class="cate-info {{ request()->routeIs('home') ? '' : 'collapsed' }}" data-bs-toggle="collapse" aria-expanded="true">
                                                 <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                                                 <span>Top Categories</span></a>
-                                                <div class="catwrap collapse <?php echo $category_collaps === true ? 'show' : '' ?>" id="categor-collapse">
+                                                <div class="catwrap collapse {{ request()->routeIs('home') ? 'show' : '' }}" id="categor-collapse">
                                                     <ul class="main-menu">
                                                         <li class="menu-link">
                                                             <a href="javascript:void(0)" class="link-title">

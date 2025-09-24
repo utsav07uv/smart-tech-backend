@@ -29,6 +29,10 @@ if (! function_exists('upload_multiple_images')) {
 if (! function_exists('delete_file_if_exists')) {
     function delete_file_if_exists(string $path, string $disk = 'public'): bool
     {
+        if(!$path) {
+            return false;
+        }
+
         if (Storage::disk($disk)->exists($path)) {
             return Storage::disk($disk)->delete($path);
         }
@@ -38,8 +42,12 @@ if (! function_exists('delete_file_if_exists')) {
 }
 
 if (! function_exists('delete_files_if_exists')) {
-    function delete_files_if_exists(array $paths, string $disk = 'public'): bool
+    function delete_files_if_exists(?array $paths, string $disk = 'public'): bool
     {
+         if(!$paths && !is_array($paths)) {
+            return false;
+        }
+
         foreach ($paths as $path) {
             if (Storage::disk($disk)->exists($path)) {
                 return Storage::disk($disk)->delete($path);
