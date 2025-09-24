@@ -62,6 +62,16 @@
                                         <label>Password</label>
                                         <input type="text" name="password" placeholder="Password" required autofocus>
                                     </li>
+
+                                    <li class="form-fill-li Password" data-animate="animate__fadeInUp">
+                                        <label>Logo</label>
+                                        <input type="file" name="avatar" required autofocus>
+                                    </li>
+
+                                    <li class="form-fill-li Password" data-animate="animate__fadeInUp">
+                                        <label>Documents (Registration, PAN)</label>
+                                        <input type="file" name="documents[]" multiple required autofocus>
+                                    </li>
                                 </ul>
                                 <div class="form-action-button">
                                     <div class="read-agree">
