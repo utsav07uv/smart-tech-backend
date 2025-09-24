@@ -42,7 +42,9 @@ class AuthenticatedSessionController extends Controller
         ]);
     }
 
-    return redirect()->intended(route('dashboard', absolute: false));
+    $redirectRoute = $user->role->isCustomer() ? 'home' : 'dashboard';
+
+    return redirect()->intended(route($redirectRoute, absolute: false));
 }
 
 
@@ -51,12 +53,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $user =  Auth::guard('web')->user();
+
+        $redirectRoute = $user->role->isAdmin() ? 'admin/login' : '/';
+        
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect($redirectRoute);
     }
 }
