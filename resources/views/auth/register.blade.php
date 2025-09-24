@@ -63,8 +63,8 @@
 
         <div class="mt-4">
             <x-input-label for="documents" :value="__('Documents')" />
-            <x-image-input id="documents" name="documents[]" multiple class="mt-1 block w-full" :value="old('documents')"
-                :image="@$category->documents" autofocus autocomplete="documents" />
+            <x-image-input id="documents" name="documents[]" multiple class="mt-1 block w-full"
+                :value="old('documents')" :image="@$category->documents" autofocus autocomplete="documents" />
             <x-input-error class="mt-2" :messages="$errors->get('documents')" />
         </div>
 

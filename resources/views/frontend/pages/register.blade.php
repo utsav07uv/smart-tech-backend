@@ -25,8 +25,10 @@
 
                 <div class="col">
                     <div class="d-flex justify-content-center align-items-center my-5">
-                        <button class="btn btn-style" disabled><a href="{{ route('register') }}" class='text-white'>Register as user</a></button>
-                        <button class="btn btn-style"><a href="{{ route('seller.register') }}" class="text-white">Register as seller</a></button>
+                        <button class="btn btn-style" disabled><a href="{{ route('register') }}" class='text-white'>Register
+                                as user</a></button>
+                        <button class="btn btn-style"><a href="{{ route('seller.register') }}" class="text-white">Register
+                                as seller</a></button>
                     </div>
                     <div class="section-capture">
                         <div class="section-title">
@@ -46,27 +48,37 @@
                                         <label>Name</label>
                                         <input type="text" name="name" autocomplete="name" placeholder="Name" required
                                             autofocus>
+                                        <p class="mt-2 text-danger">{{ $errors->get('name') }}</p>
                                     </li>
 
                                     <li class="form-fill-li Email" data-animate="animate__fadeInUp">
                                         <label>Email address</label>
                                         <input type="email" name="email" autocomplete="email" placeholder="Email address"
                                             required autofocus>
+                                        <p class="mt-2 text-danger">{{ $errors->get('email') }}</p>
+
                                     </li>
 
                                     <li class="form-fill-li Phone number" data-animate="animate__fadeInUp">
                                         <label>Phone number</label>
                                         <input type="tel" name="phone" placeholder="Phone number" required autofocus>
+                                        <p class="mt-2 text-danger">{{ $errors->get('phone') }}</p>
+
                                     </li>
 
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Password</label>
                                         <input type="text" name="password" placeholder="Password" required autofocus>
+                                        <p class="mt-2 text-danger">{{ $errors->get('password') }}</p>
+
                                     </li>
 
                                     <li class="form-fill-li Password" data-animate="animate__fadeInUp">
                                         <label>Password Confirmation</label>
-                                        <input type="password" name="password_confirmation" placeholder="Password Confirmation" required autofocus>
+                                        <input type="password" name="password_confirmation"
+                                            placeholder="Password Confirmation" required autofocus>
+                                        <p class="mt-2 text-danger">{{ $errors->get('password_confirmation') }}</p>
+
                                     </li>
                                 </ul>
                                 <div class="form-action-button">
