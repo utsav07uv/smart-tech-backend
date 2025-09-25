@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Ad;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -10,7 +11,12 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\WishlistItem;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class WebsiteController extends Controller
 {
@@ -50,11 +56,81 @@ class WebsiteController extends Controller
         ]);
     }
 
-    public function productShow () {
-        return view('frontend.pages.register');
+    public function productShow ($slug) {
+        $product = Product::where('slug', $slug)->with(['seller', 'category'])->first();
+        return view('frontend.pages.product-show', [
+            'product' => $product
+        ]);
     }
 
     public function productIndex () {
-        return view('frontend.pages.register');
+        
+        $products = Product::query()
+        ->when(request()->filled('category'), function ($query) {
+            $query->whereHas('category', function ($subQuery) {
+                $subQuery->where('name', request()->category);
+            });
+        })
+        ->when(request()->filled('vendor'), function ($query) {
+            $query->whereHas('seller', function ($subQuery) {
+                $subQuery->where('name', request()->vendor);
+            });
+        })
+        ->when(request()->filled('search'), function ($query) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+        })
+        ->paginate(12);
+        return view('frontend.pages.product', [
+            'products' => $products
+        ]);
+    }
+
+    public function vendorIndex () {
+        $vendors = User::where('role', 'seller')->get();
+        return view('frontend.pages.vendor', [
+            'vendors' => $vendors
+        ]);
+    }
+
+    public function order() {
+        return view('frontend.pages.order');
+    }
+    public function profile() {
+        return view('frontend.pages.profile');
+    }
+
+    public function updateProfile(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'phone' => ['required'],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($user->id),
+            ],
+            'password' => ['nullable', 'confirmed']
+        ]);
+
+        $user->fill(Arr::except($validated, 'password'));
+
+        if ($user->role === UserRole::SELLER && $user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        if($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        toastr()->success('Profile updated successfully.');
+
+        return back();
     }
 }

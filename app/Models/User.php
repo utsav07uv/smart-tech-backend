@@ -28,6 +28,7 @@ class User extends Authenticatable
         'approved_at',
         'avatar',
         'documents',
+        'phone'
     ];
 
     /**

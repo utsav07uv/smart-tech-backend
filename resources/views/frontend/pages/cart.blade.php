@@ -36,7 +36,7 @@
                                         </span>
                                     </div>
                                     <div class="item-wrap">
-                                        @foreach ($cartItems as $item)
+                                        @forelse ($cartItems as $item)
                                             @php
                                                 $product = $item->product;
                                                 $discount = $product->calculateDiscount();
@@ -94,12 +94,28 @@
                                                     <span class="amount full-price">AUD {{ $product->price - $discount }}</span>
                                                 </li>
                                             </ul>
-                                        @endforeach
+                                        @empty
+                                            <div class="drawer-cart-empty my-5 text-center">
+                                                <div class="drawer-scrollable">
+                                                    <h2>Your cart is currently empty</h2>
+                                                    <a href="{{ route('home') }}" class="btn btn-style2 mt-4">Continue
+                                                        shopping</a>
+                                                </div>
+                                            </div>
+                                        @endforelse
                                     </div>
-                                    <div class="cart-buttons" data-animate="animate__fadeInUp">
-                                        <a href="collection.html" class="btn-style2">Continue shopping</a>
-                                        <a href="cart-empty.html" class="btn-style2">Clear cart</a>
-                                    </div>
+                                    @if ($cartItems->isNotEmpty())
+                                        <div class="cart-buttons" data-animate="animate__fadeInUp">
+                                            <a href="{{ route('home') }}" class="btn-style2">Continue shopping</a>
+                                            <form method="POST" action="{{ route('frontend.cart.clear') }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <a href="{{ route('frontend.cart.clear') }}"
+                                                    onclick="event.preventDefault();this.closest('form').submit();"
+                                                    class="btn btn-style2">Clear cart</a>
+                                            </form>
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="special-notes">
                                     <label data-animate="animate__fadeInUp">Shopping Information</label>

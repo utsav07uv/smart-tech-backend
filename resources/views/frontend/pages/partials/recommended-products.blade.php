@@ -37,56 +37,64 @@
                                                     <span
                                                         class="product-label-title">{{ $discount > 0 ? 'Sale' : 'New'}}</span>
                                                 </div>
-                                                <div class="product-action">
-                                                    <form method="POST"
-                                                        action="{{ route('frontend.product.wishlist.add', $product->id) }}">
-                                                        @csrf
-                                                        <a href="{{ route('frontend.product.wishlist.add', $product->id) }}"
-                                                            class="wishlist"
-                                                            onclick="event.preventDefault();this.closest('form').submit();">
-                                                            <span class="tooltip-text">Wishlist</span>
-                                                            <span class="pro-action-icon"><svg viewBox="0 0 24 24"
-                                                                    width="24" height="24" stroke="currentColor"
-                                                                    stroke-width="2" fill="none" stroke-linecap="round"
-                                                                    stroke-linejoin="round" class="css-i6dzq1">
-                                                                    <path
-                                                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                                                                    </path>
-                                                                </svg></span>
-                                                        </a>
-                                                    </form>
-                                                    <a href="{{ route('frontend.product.show', $product->slug) }}"
-                                                        class="quickview">
-                                                        <span class="tooltip-text">View</span>
-                                                        <span class="pro-action-icon"><svg viewBox="0 0 24 24" width="24"
-                                                                height="24" stroke="currentColor" stroke-width="2"
-                                                                fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                                                class="css-i6dzq1">
-                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
-                                                                </path>
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                            </svg></span>
-                                                    </a>
+                                                <div class="product-action d-flex gap-2">
 
-                                                    <form method="POST"
-                                                        action="{{ route('frontend.product.cart.add', $product->id) }}">
-                                                        @csrf
-                                                        <a href="{{ route('frontend.product.cart.add', $product->id) }}"
-                                                            class="add-to-cart"
-                                                            onclick="event.preventDefault();this.closest('form').submit();">
-                                                            <span class="tooltip-text">Add to cart</span>
+                                                    <div>
+                                                        <form method="POST"
+                                                            action="{{ route('frontend.product.wishlist.add', $product->id) }}">
+                                                            @csrf
+                                                            <a href="{{ route('frontend.product.wishlist.add', $product->id) }}"
+                                                                class="wishlist"
+                                                                onclick="event.preventDefault();this.closest('form').submit();">
+                                                                <span class="tooltip-text">Wishlist</span>
+                                                                <span class="pro-action-icon"><svg viewBox="0 0 24 24"
+                                                                        width="24" height="24" stroke="currentColor"
+                                                                        stroke-width="2" fill="none" stroke-linecap="round"
+                                                                        stroke-linejoin="round" class="css-i6dzq1">
+                                                                        <path
+                                                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                            </a>
+                                                        </form>
+                                                    </div>
+
+                                                    <div>
+                                                        <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                            class="quickview">
+                                                            <span class="tooltip-text">View</span>
                                                             <span class="pro-action-icon"><svg viewBox="0 0 24 24"
                                                                     width="24" height="24" stroke="currentColor"
                                                                     stroke-width="2" fill="none" stroke-linecap="round"
                                                                     stroke-linejoin="round" class="css-i6dzq1">
-                                                                    <circle cx="9" cy="21" r="1"></circle>
-                                                                    <circle cx="20" cy="21" r="1"></circle>
-                                                                    <path
-                                                                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
                                                                     </path>
+                                                                    <circle cx="12" cy="12" r="3"></circle>
                                                                 </svg></span>
                                                         </a>
-                                                    </form>
+                                                    </div>
+
+                                                    <div>
+                                                        <form method="POST"
+                                                            action="{{ route('frontend.product.cart.add', $product->id) }}">
+                                                            @csrf
+                                                            <a href="{{ route('frontend.product.cart.add', $product->id) }}"
+                                                                class="add-to-cart"
+                                                                onclick="event.preventDefault();this.closest('form').submit();">
+                                                                <span class="tooltip-text">Add to cart</span>
+                                                                <span class="pro-action-icon"><svg viewBox="0 0 24 24"
+                                                                        width="24" height="24" stroke="currentColor"
+                                                                        stroke-width="2" fill="none" stroke-linecap="round"
+                                                                        stroke-linejoin="round" class="css-i6dzq1">
+                                                                        <circle cx="9" cy="21" r="1"></circle>
+                                                                        <circle cx="20" cy="21" r="1"></circle>
+                                                                        <path
+                                                                            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                                                        </path>
+                                                                    </svg></span>
+                                                            </a>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="product-content">
@@ -120,54 +128,60 @@
                                                     </p>
                                                 </div>
                                                 <div class="product-action">
-                                                    <form method="POST"
-                                                        action="{{ route('frontend.product.wishlist.add', $product->id) }}">
-                                                        @csrf
-                                                        <a href="{{ route('frontend.product.wishlist.add', $product->id) }}"
-                                                            class="wishlist"
-                                                            onclick="event.preventDefault();this.closest('form').submit();">
-                                                            <span class="tooltip-text">Wishlist</span>
+                                                    <div>
+                                                        <form method="POST"
+                                                            action="{{ route('frontend.product.wishlist.add', $product->id) }}">
+                                                            @csrf
+                                                            <a href="{{ route('frontend.product.wishlist.add', $product->id) }}"
+                                                                class="wishlist"
+                                                                onclick="event.preventDefault();this.closest('form').submit();">
+                                                                <span class="tooltip-text">Wishlist</span>
+                                                                <span class="pro-action-icon"><svg viewBox="0 0 24 24"
+                                                                        width="24" height="24" stroke="currentColor"
+                                                                        stroke-width="2" fill="none" stroke-linecap="round"
+                                                                        stroke-linejoin="round" class="css-i6dzq1">
+                                                                        <path
+                                                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                                                        </path>
+                                                                    </svg></span>
+                                                            </a>
+                                                        </form>
+                                                    </div>
+                                                    <div>
+                                                        <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                            class="quickview">
+                                                            <span class="tooltip-text">View</span>
                                                             <span class="pro-action-icon"><svg viewBox="0 0 24 24"
                                                                     width="24" height="24" stroke="currentColor"
                                                                     stroke-width="2" fill="none" stroke-linecap="round"
                                                                     stroke-linejoin="round" class="css-i6dzq1">
-                                                                    <path
-                                                                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
                                                                     </path>
+                                                                    <circle cx="12" cy="12" r="3"></circle>
                                                                 </svg></span>
                                                         </a>
-                                                    </form>
-                                                    <a href="{{ route('frontend.product.show', $product->slug) }}"
-                                                        class="quickview">
-                                                        <span class="tooltip-text">View</span>
-                                                        <span class="pro-action-icon"><svg viewBox="0 0 24 24" width="24"
-                                                                height="24" stroke="currentColor" stroke-width="2"
-                                                                fill="none" stroke-linecap="round" stroke-linejoin="round"
-                                                                class="css-i6dzq1">
-                                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z">
-                                                                </path>
-                                                                <circle cx="12" cy="12" r="3"></circle>
-                                                            </svg></span>
-                                                    </a>
-                                                    <form method="POST"
-                                                        action="{{ route('frontend.product.cart.add', $product->id) }}">
-                                                        @csrf
-                                                        <a href="{{ route('frontend.product.cart.add', $product->id) }}"
-                                                            class="add-to-cart"
-                                                            onclick="event.preventDefault();this.closest('form').submit();">
-                                                            <span class="tooltip-text">Add to cart</span>
-                                                            <span class="pro-action-icon"><svg viewBox="0 0 24 24"
-                                                                    width="24" height="24" stroke="currentColor"
-                                                                    stroke-width="2" fill="none" stroke-linecap="round"
-                                                                    stroke-linejoin="round" class="css-i6dzq1">
-                                                                    <circle cx="9" cy="21" r="1"></circle>
-                                                                    <circle cx="20" cy="21" r="1"></circle>
-                                                                    <path
-                                                                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
-                                                                    </path>
-                                                                </svg></span>
-                                                        </a>
-                                                    </form>
+                                                    </div>
+                                                    <div>
+                                                        <form method="POST"
+                                                            action="{{ route('frontend.product.cart.add', $product->id) }}">
+                                                            @csrf
+                                                            <a href="{{ route('frontend.product.cart.add', $product->id) }}"
+                                                                class="add-to-cart"
+                                                                onclick="event.preventDefault();this.closest('form').submit();">
+                                                                <span class="tooltip-text">Add to cart</span>
+                                                                <span class="pro-action-icon"><svg viewBox="0 0 24 24"
+                                                                        width="24" height="24" stroke="currentColor"
+                                                                        stroke-width="2" fill="none" stroke-linecap="round"
+                                                                        stroke-linejoin="round" class="css-i6dzq1">
+                                                                        <circle cx="9" cy="21" r="1"></circle>
+                                                                        <circle cx="20" cy="21" r="1"></circle>
+                                                                        <path
+                                                                            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
+                                                                        </path>
+                                                                    </svg></span>
+                                                            </a>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

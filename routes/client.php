@@ -9,9 +9,17 @@ use Illuminate\Support\Facades\Route;
    Route::get('/login', [WebsiteController::class, 'login'])->name('login'); 
    Route::get('/register', [WebsiteController::class, 'register'])->name('register'); 
    Route::get('/register/seller', [WebsiteController::class, 'sellerRegister'])->name('seller.register');
+   
+   Route::get('/my-profile', [WebsiteController::class, 'profile'])->name('frontend.profile');
+   Route::put('/my-profile', [WebsiteController::class, 'updateProfile'])->name('frontend.profile.update');
 
-   Route::get('/products', [WebsiteController::class, 'productIndex'])->name('frontend.product.index');
-   Route::get('/product/{slug}', [WebsiteController::class, 'productShow'])->name('frontend.product.show');
+      Route::get('/order-history', [WebsiteController::class, 'order'])->name('frontend.order');
+
+   Route::get('/vendors', [WebsiteController::class, 'vendorIndex'])->name('frontend.vendor.index');
+
+
+   Route::get('/products/list', [WebsiteController::class, 'productIndex'])->name('frontend.product.index');
+   Route::get('/products/{slug}', [WebsiteController::class, 'productShow'])->name('frontend.product.show');
 
 Route::middleware('auth')->group(function () {
    Route::get('/wishlist', [WebsiteController::class, 'wishlist'])->name('frontend.product.wishlist');

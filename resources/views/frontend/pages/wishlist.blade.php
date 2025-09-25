@@ -41,28 +41,25 @@
                             <div class="account-detail">
                                 <ul class="profile-ul">
                                     <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="order-history.html">
+                                        <a href="{{ route('frontend.order') }}">
                                             <span>Orders</span>
                                             <span class="pro-count">5</span>
                                         </a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="profile.html">Profile</a>
+                                        <a href="{{ route('frontend.profile') }}">Profile</a>
                                     </li>
+
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="pro-address.html">Address</a>
                                     </li>
+
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="{{ route('frontend.product.wishlist') }}" class="active">
                                             <span>Wishlist</span>
                                             <span class="pro-count">
                                                 {{ auth()->user()->wishlist?->wishlistItems()->count() ?? 0 }}
                                             </span>
-                                        </a>
-                                    </li>
-                                    <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="change-password.html">
-                                            <span>Change password</span>
                                         </a>
                                     </li>
                                 </ul>

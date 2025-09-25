@@ -467,7 +467,7 @@ textarea:active {
     display: block;
 }
 .header-theme-logo a.theme-logo img {
-    max-width: 123px;
+    max-width: 200px;
 }
 
 /*====================================
@@ -4058,7 +4058,7 @@ ul.clock li.clock-li .clock-wrap .clock-text {
     display: block;
 }
 .footer-info-wrap ul.ftinfo-ul li.ftinfo-li .footer-logo-con .footer-logo a.theme-logo img {
-    max-width: 127px;
+    max-width: 200px;
 }
 .footer-info-wrap ul.ftinfo-ul li.ftinfo-li .footer-logo-con p {
     color: var(--body-font-color);

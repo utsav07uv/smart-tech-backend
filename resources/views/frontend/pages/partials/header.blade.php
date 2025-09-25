@@ -23,7 +23,7 @@
                         <div class="header-element header-logo">
                             <div class="header-theme-logo">
                                 <a href="index.php" class="theme-logo">
-                                    <img src="images/logo.png" class="img-fluid" alt="logo">
+                                    <img src="{{ asset('smarttech/images/logo.png') }}" class="img-fluid" alt="logo">
                                 </a>
                             </div>
                         </div>
@@ -32,10 +32,12 @@
                                 <div class="search-crap">
                                     <div class="search-content">
                                         <div class="search-box">
-                                            <form action="" method="get" class="search-bar">
+                                            <form action="{{ route('frontend.product.index') }}" method="get" class="search-bar">
                                                 <div class="form-search">
-                                                    <input type="search" name="q" placeholder="Search our catalog"
-                                                        class="search-input">
+
+                                                    <input type="search" name="search" placeholder="Search our catalog"
+                                                        class="search-input" value="{{ request('search') }}">
+
                                                     <button type="submit" class="search-btn"><i
                                                             class="fa-solid fa-magnifying-glass"></i></button>
                                                 </div>
@@ -60,11 +62,11 @@
                                                                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
                                                             </path>
                                                         </svg></span>
-                                                    <span class="wishlist-count">
-                                                        @auth
+                                                    @auth
+                                                        <span class="wishlist-count">
                                                             {{ auth()->user()->wishlist?->wishlistItems()->count() ?? 0 }}
-                                                        @endauth
-                                                    </span>
+                                                        </span>
+                                                    @endauth
                                                 </span>
                                             </a>
                                         </div>
@@ -83,11 +85,11 @@
                                                                 d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6">
                                                             </path>
                                                         </svg></span>
-                                                    <span class="cart-count">
-                                                        @auth
+                                                    @auth
+                                                        <span class="cart-count">
                                                             {{ auth()->user()->cart?->cartItems()->count() ?? 0 }}
-                                                        @endauth
-                                                    </span>
+                                                        </span>
+                                                    @endauth
                                                 </span>
                                             </a>
                                         </div>
@@ -153,12 +155,14 @@
                                             <ul class="main-menu">
                                                 @foreach ($categories as $category)
                                                     <li class="menu-link">
-                                                        <a href="javascript:void(0)" class="link-title">
+                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}"
+                                                            class="link-title">
                                                             <img src="{{ $category->image }}" class="img-fluid"
                                                                 alt="{{ $category->name }}">
                                                             <span class="sp-link-title">{{ $category->name }}</span>
                                                         </a>
-                                                        <a href="javascript:void(0)" class="link-title link-title-lg">
+                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}"
+                                                            class="link-title link-title-lg">
                                                             <img src="{{ $category->image }}" class="img-fluid"
                                                                 alt="{{ $category->name }}">
                                                             <span class="sp-link-title">{{ $category->name }}</span>
@@ -190,7 +194,8 @@
                                                     </li>
 
                                                     <li class="menu-link">
-                                                        <a href="vendor.php" class="link-title">
+                                                        <a href="{{ route('frontend.vendor.index') }}"
+                                                            class="link-title">
                                                             <span class="sp-link-title">Vendor</span> </a>
                                                     </li>
                                                     <li class="menu-link">
@@ -199,7 +204,7 @@
                                                         </a>
                                                     </li>
                                                     <li class="menu-link">
-                                                        <a href="profile.php" class="link-title">
+                                                        <a href="{{ route('frontend.profile') }}" class="link-title">
                                                             <span class="sp-link-title">My Profile</span>
                                                         </a>
                                                     </li>

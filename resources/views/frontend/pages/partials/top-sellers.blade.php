@@ -15,7 +15,7 @@
                                     <div class="swiper-slide" data-animate="animate__fadeInUp">
                                         <div class="cat-info">
                                             <div class="cat-img-text">
-                                                <a href="{{ route('frontend.product.index', ['seller' => $seller->name]) }}">
+                                                <a href="{{ route('frontend.product.index', ['vendor' => $seller->name]) }}">
                                                     <img src="{{ $seller->avatar }}" class="img-fluid" alt="{{ $seller->name }}">
                                                     <div class="cat-title">
                                                         <span class="cat-text">{{ $seller->name }}</span>
