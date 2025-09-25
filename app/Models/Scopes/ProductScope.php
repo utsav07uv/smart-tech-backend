@@ -16,7 +16,7 @@ class ProductScope implements Scope
     public function apply(Builder $builder, Model $model): void
     {
         if (!Auth::check()) {
-            abort(404, "Unauthorized");
+            return;
         }
 
         $user = Auth::user();
@@ -24,7 +24,7 @@ class ProductScope implements Scope
         $builder = match ($user->role) {
             UserRole::ADMIN   => $builder,
             UserRole::SELLER  => $builder->where('user_id', $user->id),
-            default           => $builder->where('user_id', $user->id),
+            default           => $builder,
         };
     }
 }

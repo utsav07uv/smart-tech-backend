@@ -1,4 +1,3 @@
-<!-- main-slider start -->
 <section class="slider-content">
     <div class="container">
         <div class="row">
@@ -8,8 +7,8 @@
                         <div class="swiper-slide">
                             <div class="slider-image-info">
                                 <div class="slider-image">
-                                    <img src="images/slider/tv.png" class="img-fluid desk-img" alt="tv pro">
-                                    <img src="images/slider/tv.png" class="img-fluid mobile-img" alt="tv pro">
+                                    <img src="{{ asset('smarttech/images/slider/tv.png') }}" class="img-fluid desk-img" alt="tv pro">
+                                    <img src="{{ asset('smarttech/images/slider/tv.png') }}" class="img-fluid mobile-img" alt="tv pro">
                                 </div>
                                 <div class="slider-text-content">
                                     <div class="slider-text-info slider-content-right slider-text-right">
@@ -25,8 +24,8 @@
                         <div class="swiper-slide">
                             <div class="slider-image-info">
                                 <div class="slider-image">
-                                    <img src="images/slider/pixel.png" class="img-fluid desk-img" alt="pixel pro">
-                                    <img src="images/slider/pixel.png" class="img-fluid mobile-img" alt="pixel pro">
+                                    <img src="{{ asset('smarttech/images/slider/pixel.png') }}" class="img-fluid desk-img" alt="pixel pro">
+                                    <img src="{{ asset('smarttech/images/slider/pixel.png') }}" class="img-fluid mobile-img" alt="pixel pro">
                                 </div>
                                 <div class="slider-text-content">
                                     <div class="slider-text-info slider-content-right slider-text-right">
@@ -40,24 +39,24 @@
                             </div>
                         </div>
                         <div class="swiper-slide">
-                        <div class="slider-image-info">
-                            <div class="slider-image">
-                                <img src="images/slider/asus.png" class="img-fluid desk-img" alt="asus pro">
-                                <img src="images/slider/asus.png" class="img-fluid mobile-img" alt="asus pro">
-                            </div>
-                            <div class="slider-text-content">
-                                <div class="slider-text-info slider-content-right slider-text-right">
-                                    <div class="slider-subtitle">
-                                        <span>Asus TUF Gaming F16</span>
+                            <div class="slider-image-info">
+                                <div class="slider-image">
+                                    <img src="{{ asset('smarttech/images/slider/asus.png') }}" class="img-fluid desk-img" alt="asus pro">
+                                    <img src="{{ asset('smarttech/images/slider/asus.png') }}" class="img-fluid mobile-img" alt="asus pro">
+                                </div>
+                                <div class="slider-text-content">
+                                    <div class="slider-text-info slider-content-right slider-text-right">
+                                        <div class="slider-subtitle">
+                                            <span>Asus TUF Gaming F16</span>
+                                        </div>
+                                        <h2><span>Starting price from $1799</span></h2>
+                                        <a href="product-details.php" class="btn btn-style">Shop now</a>
                                     </div>
-                                    <h2><span>Starting price from $1799</span></h2>
-                                    <a href="product-details.php" class="btn btn-style">Shop now</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    
+
                     <div class="swiper-buttons">
                         <div class="swiper-buttons-wrap">
                             <button class="swiper-prev swiper-prev-home-slider"><span><svg viewBox="0 0 24 24"
@@ -80,4 +79,3 @@
         </div>
     </div>
 </section>
-<!-- main-slider end -->

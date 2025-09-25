@@ -73,4 +73,12 @@ class User extends Authenticatable
     public function isApproved(): bool {
         return !is_null($this->approved_at);
     }
+
+    public function wishlist () {
+        return $this->hasOne(Wishlist::class, 'user_id', 'id');
+    }
+
+    public function cart () {
+        return $this->hasOne(Cart::class, 'user_id', 'id');
+    }
 }

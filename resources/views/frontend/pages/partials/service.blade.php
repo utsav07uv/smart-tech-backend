@@ -8,7 +8,7 @@
                                     <li class="service-li">
                                         <div class="service-block">
                                             <a href="javascript:void(0)" data-animate="animate__fadeInUp">
-                                                <img src="images/service/service-icon1.png" class="img-fluid" alt="delivery">
+                                                <img src="{{ asset('smarttech/images/service/service-icon1.png') }}" class="img-fluid" alt="delivery">
                                             </a>
                                             <div class="service-text">
                                                 <h6 data-animate="animate__fadeInUp">Free fast delivery</h6>
@@ -19,7 +19,7 @@
                                     <li class="service-li">
                                         <div class="service-block">
                                             <a href="javascript:void(0)" data-animate="animate__fadeInUp">
-                                                <img src="images/service/service-icon2.png" class="img-fluid" alt="delivery">
+                                                <img src="{{ asset('smarttech/images/service/service-icon2.png') }}" class="img-fluid" alt="delivery">
                                             </a>
                                             <div class="service-text">
                                                 <h6 data-animate="animate__fadeInUp">24 X 7 supports</h6>
@@ -30,7 +30,7 @@
                                     <li class="service-li">
                                         <div class="service-block">
                                             <a href="javascript:void(0)" data-animate="animate__fadeInUp">
-                                                <img src="images/service/service-icon3.png" class="img-fluid" alt="delivery">
+                                                <img src="{{ asset('smarttech/images/service/service-icon3.png') }}" class="img-fluid" alt="delivery">
                                             </a>
                                             <div class="service-text">
                                                 <h6 data-animate="animate__fadeInUp">Best quality</h6>
@@ -41,7 +41,7 @@
                                     <li class="service-li">
                                         <div class="service-block">
                                             <a href="javascript:void(0)" data-animate="animate__fadeInUp">
-                                                <img src="images/service/service-icon4.png" class="img-fluid" alt="delivery">
+                                                <img src="{{ asset('smarttech/images/service/service-icon4.png') }}" class="img-fluid" alt="delivery">
                                             </a>
                                             <div class="service-text">
                                                 <h6 data-animate="animate__fadeInUp">Gift voucher</h6>
