@@ -29,13 +29,12 @@
                                 <div class="cart-title">
                                     <h6 data-animate="animate__fadeInUp">My cart:</h6>
                                     <span class="cart-count" data-animate="animate__fadeInUp">
-                                        <span
-                                            class="cart-counter">{{ auth()->user()->cart?->cartItems()->count() ?? 0 }}</span>
+                                        <span class="cart-counter">{{ $cart->cart_items_count }}</span>
                                         <span class="cart-item-title ms-2">Items</span>
                                     </span>
                                 </div>
                                 <div class="item-wrap">
-                                    @forelse ($cartItems as $item)
+                                    @forelse ($cart->cartItems as $item)
                                         @php
                                             $product = $item->product;
                                             $discount = $product->calculateDiscount();
@@ -105,7 +104,8 @@
                                                 </div>
                                             </li>
                                             <li class="item-price" data-animate="animate__fadeInUp">
-                                                <span class="amount full-price">AUD {{ $item->quantity * ($product->price - $discount) }}</span>
+                                                <span class="amount full-price">AUD
+                                                    {{ $item->quantity * ($product->price - $discount) }}</span>
                                             </li>
                                         </ul>
                                     @empty
@@ -118,7 +118,7 @@
                                         </div>
                                     @endforelse
                                 </div>
-                                @if ($cartItems->isNotEmpty())
+                                @if ($cart->cartItems->isNotEmpty())
                                     <div class="cart-buttons" data-animate="animate__fadeInUp">
                                         <a href="{{ route('home') }}" class="btn-style2">Continue shopping</a>
                                         <form method="POST" action="{{ route('frontend.cart.clear') }}">
@@ -232,17 +232,43 @@
                                             @endforeach
                                         </div>
                                     </div>
+                                @else
+                                    <div class="proceed-to-checkout mt-4 text-center" data-animate="animate__fadeInUp">
+                                        <p class="mb-3">No address found.</p>
+                                        <a href="{{ route('frontend.address') }}" class="btn btn-style2">Add New</a>
+                                    </div>
                                 @endif
                             </div>
+
                             <div class="cart-total-wrap cart-info">
                                 <div class="cart-total">
                                     <div class="total-amount" data-animate="animate__fadeInUp">
-                                        <h6 class="total-title">Total</h6>
-                                        <span class="amount total-price">$56.00</span>
+                                        <h6 class="total-title">Sub Total</h6>
+                                        <span class="amount total-price">{{ $totalPrice }}</span>
                                     </div>
-                                    
+
+                                    <div class="total-amount" data-animate="animate__fadeInUp">
+                                        <h6 class="total-title">GST</h6>
+                                        <span class="amount total-price">{{ $gst }}</span>
+                                    </div>
+
+                                    <div class="total-amount" data-animate="animate__fadeInUp">
+                                        <h6 class="total-title">Shipping Fee</h6>
+                                        <span class="amount total-price">{{ $shippingFee }}</span>
+                                    </div>
+
+                                    <div class="total-amount" data-animate="animate__fadeInUp">
+                                        <h6 class="total-title">Discount</h6>
+                                        <span class="amount total-price">{{ $totalDiscount }}</span>
+                                    </div>
+
+                                    <div class="total-amount" data-animate="animate__fadeInUp">
+                                        <h6 class="total-title">Total</h6>
+                                        <span class="amount total-price">{{ $grandTotal }}</span>
+                                    </div>
+
                                     <div class="proceed-to-checkout" data-animate="animate__fadeInUp">
-                                        <a href="checkout.php" class="btn btn-style2">Checkout</a>
+                                        <a href="checkout.php" class="btn btn-style2">Proceed to pay</a>
                                     </div>
                                 </div>
                             </div>

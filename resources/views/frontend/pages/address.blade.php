@@ -86,7 +86,8 @@
                                                         <br>
                                                         Australia
                                                     </p>
-                                                    <p class="mb-0 text-muted">Phone: {{ auth()->user()->phone }}</p>
+                                                    <p class="mb-0 text-muted">Email: {{ $address->email }}</p>
+                                                    <p class="mb-0 text-muted">Phone: {{ $address->phone }}</p>
                                                     <div class="mt-3 d-flex justify-content-end gap-2">
                                                         @if (!$address->is_default)
                                                             <form method="POST"
@@ -152,6 +153,22 @@
                                                 <input type="text" name="postal_code" class="spr-form-input"
                                                     placeholder="Postal Code*" required autofocus>
                                                 <x-input-error :messages="$errors->get('postal_code')"
+                                                    class="mt-2 text-danger" />
+                                            </li>
+
+                                            <li class="billing-li" data-animate="animate__fadeInUp">
+                                                <label>Email</label>
+                                                <input type="email" name="email" class="spr-form-input"
+                                                    placeholder="Email Address*" required autofocus>
+                                                <x-input-error :messages="$errors->get('email')"
+                                                    class="mt-2 text-danger" />
+                                            </li>
+
+                                            <li class="billing-li" data-animate="animate__fadeInUp">
+                                                <label>Phone</label>
+                                                <input type="tel" name="phone" class="spr-form-input"
+                                                    placeholder="Phone Number*" required autofocus>
+                                                <x-input-error :messages="$errors->get('phone')"
                                                     class="mt-2 text-danger" />
                                             </li>
 

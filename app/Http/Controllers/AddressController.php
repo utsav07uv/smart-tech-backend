@@ -37,6 +37,8 @@ class AddressController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string'],
             'state' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'string'],
             'city' => ['required', 'string'],
             'user_id' => ['required', 'exists:users,id'],
             'address_line1' => ['required', 'string'],

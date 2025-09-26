@@ -272,7 +272,7 @@
                                     <div class="product-info">
                                         <div class="product-sku">
                                             <h6>VENDOR:</h6>
-                                            <span class="variant-sku">{{ $product->vendor?->name ?? 'N/A' }}</span>
+                                            <span class="variant-sku">{{ $product->seller?->name ?? 'N/A' }}</span>
                                         </div>
                                     </div>
 

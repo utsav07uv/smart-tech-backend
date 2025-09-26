@@ -20,7 +20,8 @@ use Illuminate\Validation\Rule;
 
 class WebsiteController extends Controller
 {
-    public function home () {
+    public function home()
+    {
         return view('frontend.pages.home', [
             'sellers' => User::where('role', UserRole::SELLER)->select(['id', 'name', 'avatar'])->get(),
             'featuredSectionAds' => Ad::where('placement', 1)->inRandomOrder()->take(3)->get(),
@@ -30,80 +31,102 @@ class WebsiteController extends Controller
         ]);
     }
 
-    public function login () {
+    public function login()
+    {
         return view('frontend.pages.login');
     }
 
-    public function register () {
+    public function register()
+    {
         return view('frontend.pages.register');
     }
 
-    public function sellerRegister () {
+    public function sellerRegister()
+    {
         return view('frontend.pages.seller-register');
     }
 
-    public function wishlist () {
-        $wishlistItems = WishlistItem::whereHas('wishlist', fn ($query) => $query->where('user_id', Auth::id()))->with('product')->get();
+    public function wishlist()
+    {
+        $wishlistItems = WishlistItem::whereHas('wishlist', fn($query) => $query->where('user_id', Auth::id()))->with('product')->get();
         return view('frontend.pages.wishlist', [
             'wishlistItems' => $wishlistItems
         ]);
     }
 
-    public function cart () {
-        $cartItems = CartItem::whereHas('cart', fn ($query) => $query->where('user_id', Auth::id()))->with('product')->get();
+    public function cart()
+    {
+        $cart = Auth::user()
+            ->cart()
+            ->with(['cartItems.product'])
+            ->withCount('cartItems')
+            ->firstOrFail();
+
         return view('frontend.pages.cart', [
-            'cartItems' => $cartItems
+            'cart' => $cart,
+            'totalPrice' => $cart->totalPrice(),
+            'totalDiscount' => $cart->totalDiscount(),
+            'gst' => $cart->totalPrice() * 0.1,
+            'shippingFee' => 20,
+            'grandTotal' => (($cart->totalPrice() * 1.1) - $cart->totalDiscount()) + 20,
         ]);
     }
 
-    public function productShow ($slug) {
+    public function productShow($slug)
+    {
         $product = Product::where('slug', $slug)->with(['seller', 'category'])->first();
         return view('frontend.pages.product-show', [
             'product' => $product
         ]);
     }
 
-    public function productIndex () {
-        
+    public function productIndex()
+    {
+
         $products = Product::query()
-        ->when(request()->filled('category'), function ($query) {
-            $query->whereHas('category', function ($subQuery) {
-                $subQuery->where('name', request()->category);
-            });
-        })
-        ->when(request()->filled('vendor'), function ($query) {
-            $query->whereHas('seller', function ($subQuery) {
-                $subQuery->where('name', request()->vendor);
-            });
-        })
-        ->when(request()->filled('search'), function ($query) {
-            $query->where('name', 'like', '%' . request()->search . '%');
-        })
-        ->paginate(12);
+            ->when(request()->filled('category'), function ($query) {
+                $query->whereHas('category', function ($subQuery) {
+                    $subQuery->where('name', request()->category);
+                });
+            })
+            ->when(request()->filled('vendor'), function ($query) {
+                $query->whereHas('seller', function ($subQuery) {
+                    $subQuery->where('name', request()->vendor);
+                });
+            })
+            ->when(request()->filled('search'), function ($query) {
+                $query->where('name', 'like', '%' . request()->search . '%');
+            })
+            ->paginate(12);
         return view('frontend.pages.product', [
             'products' => $products
         ]);
     }
 
-    public function vendorIndex () {
+    public function vendorIndex()
+    {
         $vendors = User::where('role', 'seller')->get();
         return view('frontend.pages.vendor', [
             'vendors' => $vendors
         ]);
     }
 
-    public function order() {
+    public function order()
+    {
         return view('frontend.pages.order');
     }
-    public function profile() {
+    public function profile()
+    {
         return view('frontend.pages.profile');
     }
 
-    public function contact() {
+    public function contact()
+    {
         return view('frontend.pages.contact');
     }
 
-    public function address() {
+    public function address()
+    {
         return view('frontend.pages.address');
     }
 
@@ -131,7 +154,7 @@ class WebsiteController extends Controller
             $user->email_verified_at = null;
         }
 
-        if($request->filled('password')) {
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
 
