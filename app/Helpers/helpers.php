@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -29,7 +31,7 @@ if (! function_exists('upload_multiple_images')) {
 if (! function_exists('delete_file_if_exists')) {
     function delete_file_if_exists(?string $path, string $disk = 'public'): bool
     {
-        if(empty($path)) {
+        if (empty($path)) {
             return true;
         }
 
@@ -55,5 +57,31 @@ if (! function_exists('delete_files_if_exists')) {
         }
 
         return false;
+    }
+}
+
+if (! function_exists('generate_order_number')) {
+    function generate_order_number(User $seller): string
+    {
+        $today = now()->startOfDay();
+
+        $orderCount = Order::where('user_id', $seller->id)
+            ->whereDate('created_at', $today)
+            ->count();
+
+        $sequence = str_pad($orderCount + 1, 3, '0', STR_PAD_LEFT);
+
+        return "#ORD-" . now()->format('ymd') . "-" . $sequence;
+    }
+}
+
+if(! function_exists('calculate_discount')) {
+ function calculate_discount(int|float $discount, int|float $price)
+    {
+        if (is_null($discount) || $discount <= 0) {
+            return 0;
+        }
+
+        return ($discount / 100) * $price;
     }
 }

@@ -10,7 +10,7 @@
                                 <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-li">
-                                <span class="breadcrumb-text">profile</span>
+                                <span class="breadcrumb-text">Address</span>
                             </li>
                         </ul>
                     </div>
@@ -50,7 +50,7 @@
                                         <a href="{{ route('frontend.profile') }}">Profile</a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="pro-address.html">Address</a>
+                                        <a href="{{ route('frontend.address') }}" class="active">Address</a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="{{ route('frontend.product.wishlist') }}">
@@ -66,55 +66,107 @@
                         </div>
 
                         <div class="profile-form profile-address">
+                            @if (auth()->user()->addresses->isNotEmpty())
+                                <div class="billing-area mb-4">
+                                    <h5 class="mb-3">Select Delivery Address</h5>
+                                    <div class="row g-3">
+                                        @foreach (auth()->user()->addresses as $address)
+                                            <div class="col-md-6">
+                                                <div class="card border p-3">
+                                                    <div class="d-flex justify-content-between align-items-start">
+                                                        <p class="fw-bold">{{ $address->name }}</p>
+                                                        @if ($address->is_default)
+                                                            <span class="badge bg-success">Default</span>
+                                                        @endif
+                                                    </div>
+                                                    <p class="mb-1 mt-2">
+                                                        {{ auth()->user()->name }} <br>
+                                                        {{ $address->address_line1 }} <br>
+                                                        {{ $address->state }}, {{ $address->city }}, {{ $address->postal_code }}
+                                                        <br>
+                                                        Australia
+                                                    </p>
+                                                    <p class="mb-0 text-muted">Phone: {{ auth()->user()->phone }}</p>
+                                                    <div class="mt-3 d-flex justify-content-end gap-2">
+                                                        @if (!$address->is_default)
+                                                            <form method="POST"
+                                                                action="{{ route('frontend.address.default', $address->id) }}">
+                                                                @csrf
+                                                                @method('PUT')
+
+                                                                <button type="submit"
+                                                                    onclick="event.preventDefault();this.closest('form').submit();"
+                                                                    class="btn btn-sm btn-primary">Make Default</button>
+                                                            </form>
+                                                        @endif
+
+                                                        <form method="POST" action="{{ route('address.destroy', $address->id) }}">
+                                                            @csrf
+                                                            @method('DELETE')
+
+                                                            <button type="submit"
+                                                                onclick="event.preventDefault();this.closest('form').submit();"
+                                                                class="btn btn-sm btn-danger">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="billing-area">
-                                <form action="{{ route('frontend.profile.update') }}" method="POST">
+                                <form action="{{ route('address.store') }}" method="POST">
                                     @csrf
-                                    @method('PUT')
+                                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
                                     <div class="pro-add-title">
-                                        <h6 data-animate="animate__fadeInUp">Profile</h6>
+                                        <h6 data-animate="animate__fadeInUp">Address</h6>
                                     </div>
                                     <div class="billing-form">
                                         <ul class="input-2">
                                             <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <label>Name</label>
-                                                <input type="text" name="name" placeholder="Full Name"
-                                                    value="{{ auth()->user()->name }}" required autofocus>
+                                                <label>Address label</label>
+                                                <input type="text" class="spr-form-input" name="name"
+                                                    placeholder="Home Address*" required autofocus>
                                                 <x-input-error :messages="$errors->get('name')" class="mt-2 text-danger" />
+                                            </li>
+
+                                            <li class="billing-li" data-animate="animate__fadeInUp">
+                                                <label>State</label>
+                                                <input type="text" class="spr-form-input" name="state" placeholder="State*"
+                                                    required autofocus>
+                                                <x-input-error :messages="$errors->get('state')" class="mt-2 text-danger" />
+                                            </li>
+
+                                            <li class="billing-li" data-animate="animate__fadeInUp">
+                                                <label>City</label>
+                                                <input type="text" class="spr-form-input" name="city" placeholder="City*"
+                                                    required autofocus>
+                                                <x-input-error :messages="$errors->get('city')" class="mt-2 text-danger" />
 
                                             </li>
 
                                             <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <label>Email address</label>
-                                                <input type="email" name="email" placeholder="Email address"
-                                                    value="{{ auth()->user()->email }}" required autofocus>
-                                                <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
-
-
+                                                <label>Zip/Postal Code</label>
+                                                <input type="text" name="postal_code" class="spr-form-input"
+                                                    placeholder="Postal Code*" required autofocus>
+                                                <x-input-error :messages="$errors->get('postal_code')"
+                                                    class="mt-2 text-danger" />
                                             </li>
-                                            <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <label>Phone number</label>
-                                                <input type="tel" name="phone" value="{{ auth()->user()->phone }}"
-                                                    placeholder="Phone number" required autofocus>
-                                                <x-input-error :messages="$errors->get('phone')" class="mt-2 text-danger" />
 
-                                            </li>
                                             <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <label>New password</label>
-                                                <input type="password" name="password" placeholder="New password">
-                                                <x-input-error :messages="$errors->get('password')"
+                                                <textarea name="address_line1" class="w-100"
+                                                    placeholder="Address line" rows="5"></textarea>
+                                                <x-input-error :messages="$errors->get('address_line1')"
                                                     class="mt-2 text-danger" />
 
                                             </li>
-                                            <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <label>Confirm password</label>
-                                                <input type="password" name="password_confirmation"
-                                                    placeholder="Confirm password">
-                                            </li>
+
                                         </ul>
                                         <ul class="pro-submit">
                                             <li data-animate="animate__fadeInUp">
-                                                <button type="submit" class="btn btn-style2">Update
-                                                    profile</button>
+                                                <button type="submit" class="btn btn-style2">ADD NEW</button>
                                             </li>
                                         </ul>
                                     </div>

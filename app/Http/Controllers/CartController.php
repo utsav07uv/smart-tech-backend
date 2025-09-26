@@ -4,30 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
-    public function store($id)
+    public function store(Request $request, $id)
     {
         try {
             $cart = Cart::firstOrCreate([
                 'user_id' => Auth::id(),
             ]);
 
-            $item = $cart->cartItems()->firstOrCreate([
-                'product_id' => $id,
-                'quantity' => 1
-            ]);
+            $item = $cart->cartItems()->firstOrCreate(
+                ['product_id' => $id],
+                ['quantity' => $request->quantity ?? 1]
+            );
 
             if ($item->wasRecentlyCreated) {
                 toastr()->success('Product added to cart successfully.');
             } else {
-                toastr()->info('Product is already in your cart.');
+                toastr()->info('Product updated in your cart.');
             }
 
             return back();
-            
+        } catch (\Throwable $th) {
+            toastr()->error('Something went wrong: ' . $th->getMessage());
+            return back();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            CartItem::where(['product_id' => $id])->update(
+                ['quantity' => $request->quantity ?? 1]
+            );
+
+            toastr()->info('Product updated in your cart.');
+
+            return back();
         } catch (\Throwable $th) {
             toastr()->error('Something went wrong: ' . $th->getMessage());
             return back();
@@ -38,9 +54,8 @@ class CartController extends Controller
     {
         try {
             CartItem::where('product_id', $id)->delete();
-            toastr()->success('Product added to cart successfully.');
+            toastr()->success('Product removed from cart successfully.');
             return back();
-
         } catch (\Throwable $th) {
             toastr()->error('Something went wrong: ' . $th->getMessage());
             return back();
@@ -57,7 +72,6 @@ class CartController extends Controller
 
             toastr()->success('Cart cleared successfully.');
             return back();
-
         } catch (\Throwable $th) {
             toastr()->error('Something went wrong: ' . $th->getMessage());
             return back();

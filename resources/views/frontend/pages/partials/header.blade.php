@@ -111,10 +111,10 @@
                         <div class="search-crap">
                             <div class="search-content">
                                 <div class="search-box">
-                                    <form action="index.php" method="get" class="search-bar">
+                                    <form action="{{ route('frontend.product.index') }}" method="get" class="search-bar">
                                         <div class="form-search">
-                                            <input type="search" name="q" placeholder="Search our catalog"
-                                                class="search-input">
+                                            <input type="search" name="search" placeholder="Search our catalog"
+                                                class="search-input" value="{{ request('search') }}">
                                             <button type="submit" class="search-btn"><i
                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                         </div>
@@ -209,8 +209,8 @@
                                                         </a>
                                                     </li>
                                                     <li class="menu-link">
-                                                        <a href="support.php" class="link-title">
-                                                            <span class="sp-link-title">Support</span>
+                                                        <a href="{{ route('frontend.contact') }}" class="link-title">
+                                                            <span class="sp-link-title">Contact</span>
                                                         </a>
                                                     </li>
                                                 </ul>

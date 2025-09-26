@@ -51,7 +51,7 @@
                                     </li>
 
                                     <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="pro-address.html">Address</a>
+                                        <a href="{{ route('frontend.address') }}">Address</a>
                                     </li>
 
                                     <li class="profile-li" data-animate="animate__fadeInUp">
@@ -95,14 +95,16 @@
                                             <div class="wishlist-all-pro">
                                                 <div class="wishlist-pro">
                                                     <div class="wishlist-pro-image">
-                                                        <a href="{{ route('frontend.product.show', $product->slug) }}" data-animate="animate__fadeInUp">
+                                                        <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                            data-animate="animate__fadeInUp">
                                                             <img src="{{ $product->image }}" class="img-fluid"
                                                                 alt="{{ $product->name }}">
                                                         </a>
                                                     </div>
                                                     <div class="pro-details">
                                                         <h6>
-                                                            <a href="{{ route('frontend.product.show', $product->slug) }}" data-animate="animate__fadeInUp">{{ $product->name }}</a>
+                                                            <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                                data-animate="animate__fadeInUp">{{ $product->name }}</a>
                                                         </h6>
                                                     </div>
                                                 </div>

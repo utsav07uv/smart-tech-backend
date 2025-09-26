@@ -82,4 +82,12 @@ class User extends Authenticatable
     public function cart () {
         return $this->hasOne(Cart::class, 'user_id', 'id');
     }
+
+    public function addresses () {
+        return $this->hasMany(Address::class, 'user_id', 'id');
+    }
+
+    public function defaultAddress () {
+        return $this->hasOne(Address::class, 'user_id', 'id')->where('is_default', true);
+    }
 }

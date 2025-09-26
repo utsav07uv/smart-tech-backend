@@ -50,6 +50,11 @@ class Product extends Model
         return $this->hasMany(StockMovement::class, 'product_id', 'id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id', 'id');
+    }
+
     protected function image(): Attribute
     {
         return Attribute::make(

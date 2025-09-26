@@ -6,16 +6,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="breadcrumb-index">
-                            <!-- breadcrumb-list start -->
                             <ul class="breadcrumb-ul">
                                 <li class="breadcrumb-li">
-                                    <a class="breadcrumb-link" href="index.php">Home</a>
+                                    <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="breadcrumb-li">
                                     <span class="breadcrumb-text">Account</span>
                                 </li>
                             </ul>
-                            <!-- breadcrumb-list end -->
                         </div>
                     </div>
                 </div>
@@ -26,15 +24,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <!-- account login title start -->
                         <div class="log-acc" id="CustomerLoginForm">
                             <div class="section-capture">
                                 <div class="section-title">
                                     <h2 data-animate="animate__fadeInUp"><span>Login account</span></h2>
                                 </div>
                             </div>
-                            <!-- account login title end -->
-                            <!-- account login start  -->
                             <div class="log-acc-page">
                                 <div class="contact-form-list">
                                     <form method="post" action="{{  route('login') }}">
@@ -63,9 +58,9 @@
                                     </form>
                                 </div>
                                 <div class="acc-wrapper" data-animate="animate__fadeInUp">
-                                    <h6>Already have account?</h6>
+                                    <h6>Don't have an account?</h6>
                                     <div class="account-optional">
-                                        <a href="create-account.html">Create a account</a>
+                                        <a href="{{ route('register') }}l">Create a account</a>
                                     </div>
                                 </div>
                             </div>

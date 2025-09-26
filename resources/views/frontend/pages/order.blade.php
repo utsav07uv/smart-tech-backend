@@ -50,7 +50,7 @@
                                         <a href="{{ route('frontend.profile') }}">Profile</a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
-                                        <a href="pro-address.html">Address</a>
+                                        <a href="{{ route('frontend.address') }}">Address</a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="{{ route('frontend.product.wishlist') }}">

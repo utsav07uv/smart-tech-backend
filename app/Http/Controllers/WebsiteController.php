@@ -99,6 +99,14 @@ class WebsiteController extends Controller
         return view('frontend.pages.profile');
     }
 
+    public function contact() {
+        return view('frontend.pages.contact');
+    }
+
+    public function address() {
+        return view('frontend.pages.address');
+    }
+
     public function updateProfile(Request $request): RedirectResponse
     {
         $user = $request->user();

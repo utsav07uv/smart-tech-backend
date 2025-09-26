@@ -19,7 +19,7 @@
         </div>
     </section>
 
-    <section class="product-details-page pro-style4 bg-color section-pt">
+    <section class="product-details-page pro-style4 bg-color section-ptb">
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -29,7 +29,7 @@
                                 <div class="product-img-top">
                                     <button class="full-view"><i class="bi bi-arrows-fullscreen"></i></button>
                                     <div class="style4-slider-big slick-slider">
-                                        @foreach ($product->images as $image) 
+                                        @foreach ($product->images as $image)
                                             <div class="slick-slide">
                                                 <a href="{{ $image }}" class="product-single">
                                                     <figure class="zoom" onmousemove="zoom(event)"
@@ -44,7 +44,7 @@
 
                                 <div class="pro-slider">
                                     <div class="style4-slider-small pro-detail-slider">
-                                        @foreach ($product->images as $image) 
+                                        @foreach ($product->images as $image)
                                             <div class="slick-slide">
                                                 <a href="javascript:void(0)" class="product-single--thumbnail">
                                                     <img src="{{ $image }}" class="img-fluid" alt="{{ $product->name }}">
@@ -56,7 +56,6 @@
                             </div>
                         </div>
 
-                        <!-- peoduct detail start -->
                         <div class="product-details-wrap product-details-lr product-details">
                             <div class="product-details-info">
                                 <div class="pro-nprist">
@@ -87,8 +86,8 @@
                                         <div class="pro-prlb pro-sale">
                                             <div class="price-box">
                                                 <span class="new-price">AUD {{ $product->price - $discount }} </span>
-                                                @if ($discount > 0) 
-                                                    <span class="old-price">AUD {{ $product->price }} </span>
+                                                @if ($discount > 0)
+                                                    <span class="old-price"><del>AUD {{ $product->price }}</del></span>
                                                     <span class="percent-count">{{ $product->discount }}</span>
                                                 @endif
                                             </div>
@@ -96,26 +95,35 @@
                                     </div>
                                     <div class="product-info">
                                         <div class="product-inventory">
-                                            <div class="stock-inventory stock-more">
-                                                <p class="text-success">Hurry up! only
-                                                    <span class="available-stock bg-success">{{ $product->stock }}</span>
-                                                    products left in stock!
-                                                </p>
-                                            </div>
-                                            <div class="stock-inventory stock-zero collapse">
-                                                <p class="text-danger">Unfortunately
-                                                    <span class="available-stock bg-danger">{{ $product->stock }}</span>
-                                                    products left in stock!
-                                                </p>
-                                            </div>
+                                            @if ($product->stock > 0)
+                                                <div class="stock-inventory stock-more">
+                                                    <p class="text-success">Hurry up! only
+                                                        <span class="available-stock bg-success">{{ $product->stock }}</span>
+                                                        products left in stock!
+                                                    </p>
+                                                </div>
+
+                                            @else
+                                                <div class="stock-inventory stock-zero">
+                                                    <p class="text-danger">Unfortunately
+                                                        <span class="available-stock bg-danger">{{ $product->stock }}</span>
+                                                        products left in stock!
+                                                    </p>
+                                                </div>
+                                            @endif
+
                                             <div class="product-variant">
                                                 <h6>Availability:</h6>
-                                                <span class="stock-qty in-stock text-success">
-                                                    <span>In stock<i class="bi bi-check2"></i></span>
-                                                </span>
-                                                <span class="stock-qty out-stock text-danger collapse">
-                                                    <span>Out of stock</span>
-                                                </span>
+                                                @if ($product->stock > 0)
+                                                    <span class="stock-qty in-stock text-success">
+                                                        <span>In stock<i class="bi bi-check2"></i></span>
+                                                    </span>
+                                                @else
+                                                    <span class="stock-qty out-stock text-danger">
+                                                        <span>Out of stock</span>
+                                                    </span>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </div>
@@ -134,8 +142,8 @@
                                                             <div class="variant-wrap">
                                                                 <div class="variant-property">
                                                                     <div class="swatch-element color {{ $product->color }}">
-                                                                        <input type="radio" name="option-0" value="{{ $product->color }}"
-                                                                            checked>
+                                                                        <input type="radio" name="option-0"
+                                                                            value="{{ $product->color }}" checked>
                                                                         <label>{{ $product->color }}</label>
                                                                     </div>
                                                                 </div>
@@ -147,8 +155,11 @@
                                         </div>
                                     </div>
                                     <div class="product-info">
-                                        <form method="post" class="cart">
-                                            <div class="pro-detail-button">
+                                        <div class="pro-detail-button">
+                                            <form method="POST"
+                                                action="{{ route('frontend.product.cart.add', $product->id) }}"
+                                                class="cart">
+                                                @csrf
                                                 <div class="product-quantity-button">
                                                     <div class="product-quantity-action">
                                                         <h6>Quantity:</h6>
@@ -162,36 +173,48 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <button type="button" onclick="location. href='cart-page.html'"
+
+                                                    <button type="submit"
+                                                        onclick="event.preventDefault();this.closest('form').submit();"
                                                         class="btn add-to-cart ajax-spin-cart">
                                                         <span class="cart-title">Add to cart</span>
                                                     </button>
+
                                                 </div>
-                                                <a href="cart-empty.html" class="btn btn-cart btn-theme">
-                                                    <span>Buy now</span>
-                                                </a>
-                                            </div>
-                                        </form>
+                                            </form>
+
+                                            <a href="cart-empty.html" class="btn btn-cart btn-theme">
+                                                <span>Buy now</span>
+                                            </a>
+
+                                        </div>
                                     </div>
                                     <div class="product-info">
                                         <div class="product-actions">
                                             <div class="pro-aff-che">
-                                                <a href="wishlist-product.html" class="wishlist">
-                                                    <span
-                                                        class="wishlist-icon action-wishlist tile-actions--btn wishlist-btn">
-                                                        <span class="add-wishlist"><i class="bi bi-heart"></i></span>
-                                                    </span>
-                                                    <span class="wishlist-text">Wishlist</span>
-                                                </a>
+                                                <form method="POST"
+                                                    action="{{ route('frontend.product.wishlist.add', $product->id) }}">
+                                                    @csrf
+
+                                                    <a href="{{ route('frontend.product.wishlist.add', $product->id) }}"
+                                                        class="wishlist"
+                                                        onclick="event.preventDefault();this.closest('form').submit();">
+                                                        <span
+                                                            class="wishlist-icon action-wishlist tile-actions--btn wishlist-btn">
+                                                            <span class="add-wishlist"><i class="bi bi-heart"></i></span>
+                                                        </span>
+                                                        <span class="wishlist-text">Wishlist</span>
+                                                    </a>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="product-info">
                                         <div class="form-group">
                                             <a href="#deliver-modal" data-bs-toggle="modal">Delivery &amp; return</a>
-                                            <a href="#que-modal" data-bs-toggle="modal">Ask a question</a>
                                         </div>
                                     </div>
+
                                     <div class="modal fade deliver-modal" id="deliver-modal" tabindex="-1"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -222,78 +245,37 @@
                                                             <h4>Help</h4>
                                                             <p>Give us a shout if you have any other questions and/or
                                                                 concerns.</p>
-                                                            <p>Email:<a href="mailto:contact@domain.com">demo@gmail.com</a>
+                                                            <p>Email: <a
+                                                                    href="mailto:{{ $product->seller?->email }}">{{ $product->seller?->email }}</a>
                                                             </p>
-                                                            <p>Phone:<a href="tel:+1(23)456789">+1 (23) 456 789</a></p>
+                                                            <p>Phone: <a
+                                                                    href="tel:{{ $product->seller?->phone }}">{{ $product->seller?->phone ?? 'N/A' }}</a>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal fade que-modal" id="que-modal" aria-modal="true" tabindex="-1"
-                                        role="dialog">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    <button type="button" class="pop-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"><i class="feather-x"></i></button>
-                                                    <div class="product-form-list">
-                                                        <div class="single-product-wrap">
-                                                            <div class="product-image">
-                                                                <a class="pro-img" href="collection.html">
-                                                                    <img class="img-fluid img1 resp-img1"
-                                                                        src="img/product/home1-pro-5.jpg" alt="p-1">
-                                                                    <img class="img-fluid img2 resp-img2"
-                                                                        src="img/product/home1-pro-6.jpg" alt="p-2">
-                                                                </a>
-                                                            </div>
-                                                            <div class="product-content">
-                                                                <div class="pro-title-price">
-                                                                    <h6><a href="product-details.php">Air conditioner</a>
-                                                                    </h6>
-                                                                    <div class="product-price">
-                                                                        <div class="price-box">
-                                                                            <span class="new-price">$61.00</span>
-                                                                            <span class="old-price">$54.00</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ask-form">
-                                                        <h6>Ask a question</h6>
-                                                        <form method="post" class="contact-form">
-                                                            <input type="hidden" name="contact[product url]" value="">
-                                                            <div class="form-grp">
-                                                                <input type="text" name="contact[name]" required=""
-                                                                    placeholder="Your name*">
-                                                                <input type="text" name="contact[phone]"
-                                                                    placeholder="Your phone number">
-                                                                <input type="email" name="contact[email]" required=""
-                                                                    placeholder="Your email*">
-                                                                <textarea name="contact[question]" rows="4" required=""
-                                                                    placeholder="Your message*"></textarea>
-                                                                <p>* Required fields</p>
-                                                                <button type="submit" class="btn-style2">Submit Now</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="product-info">
-                                        <p><span>🚚</span> Item will be delivered on or before <span id="ten-days-ahead">{{ now()->addDays(3)->format('D d m, Y') }}</span></p>
+                                        <p><span>🚚</span> Item will be delivered on or before <span
+                                                id="ten-days-ahead">{{ now()->addDays(3)->format('D d m, Y') }}</span></p>
                                     </div>
                                     <div class="product-info">
                                         <div class="product-sku">
                                             <h6>SKU:</h6>
-                                            <span class="variant-sku">{{ $product->sku }}</span>
+                                            <span class="variant-sku">{{ $product->sku ?? 'N/A' }}</span>
                                         </div>
                                     </div>
-                                    
+
+                                    <div class="product-info">
+                                        <div class="product-sku">
+                                            <h6>VENDOR:</h6>
+                                            <span class="variant-sku">{{ $product->vendor?->name ?? 'N/A' }}</span>
+                                        </div>
+                                    </div>
+
                                     <div class="product-info">
                                         <div class="product-payment-image">
                                             <ul class="payment-icon">
@@ -331,7 +313,7 @@
                                                             </path>
                                                         </svg></a>
                                                 </li>
-                                                
+
                                             </ul>
                                         </div>
                                     </div>
@@ -351,7 +333,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="tab">
                                         <a href="#collapse-reviews" class="tab-title collapsed" data-bs-toggle="collapse">
                                             <h6 class="tab-name">Reviews</h6>
@@ -376,20 +358,35 @@
                                                     <div class="spr-content">
                                                         <!-- spar-from start -->
                                                         <div class="spr-form collapse" id="add-review">
-                                                            <form method="post" class="new-review-form">
+                                                            <form method="POST" class="new-review-form"
+                                                                action="{{ route('review.store') }}">
+                                                                @csrf
+
+                                                                <input type="hidden" name="user_id"
+                                                                    value="{{ auth()->id() }}">
+                                                                <input type="hidden" name="product_id"
+                                                                    value="{{ $product->id }}">
+                                                                <x-input-error :messages="$errors->get('user_id')"
+                                                                    class="mt-2 text-danger" />
+                                                                <x-input-error :messages="$errors->get('product_id')"
+                                                                    class="mt-2 text-danger" />
+
+
                                                                 <h3 class="spr-form-title">Write a review</h3>
                                                                 <fieldset class="spr-form-contact">
                                                                     <div class="spr-form-contact-name">
                                                                         <label class="spr-form-label">Name</label>
-                                                                        <input type="text" name="q"
+                                                                        <input type="text" name="name"
+                                                                            value="{{ auth()->user()->name }}"
                                                                             class="spr-form-input spr-form-input-text "
-                                                                            placeholder="Enter your name">
+                                                                            placeholder="Enter your name" disabled>
                                                                     </div>
                                                                     <div class="spr-form-contact-email">
                                                                         <label class="spr-form-label">Email address</label>
-                                                                        <input type="email" name="q"
+                                                                        <input type="email" name="email"
+                                                                            value="{{ auth()->user()->email }}"
                                                                             class="spr-form-input spr-form-input-email"
-                                                                            placeholder="john.smith@example.com">
+                                                                            placeholder="Enter email address" disabled>
                                                                     </div>
                                                                 </fieldset>
                                                                 <fieldset class="spr-form-review">
@@ -404,36 +401,43 @@
                                                                                 <i class="fas fa-star-half-alt"></i>
                                                                             </span>
                                                                         </div>
+                                                                        <div class="spr-form-contact-email">
+                                                                            <input type="number" max="5" min="0"
+                                                                                name="rating"
+                                                                                class="spr-form-input spr-form-input-email">
+                                                                            <x-input-error
+                                                                                :messages="$errors->get('rating')"
+                                                                                class="mt-2 text-danger" />
+
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="spr-form-review-title">
-                                                                        <label class="spr-form-label">Review title</label>
-                                                                        <input type="text" name="q"
-                                                                            class="spr-form-input spr-form-input-text "
-                                                                            placeholder="Give your review a title">
-                                                                    </div>
+
                                                                     <div class="spr-form-review-body">
-                                                                        <label class="spr-form-label">Body of review
+                                                                        <label class="spr-form-label">Comment
                                                                             <span>
                                                                                 <span
-                                                                                    class="spr-form-review-body-charactersremaining">(1500)</span>
+                                                                                    class="spr-form-review-body-charactersremaining">(100)</span>
                                                                             </span>
                                                                         </label>
                                                                         <div class="spr-form-input">
-                                                                            <textarea
+                                                                            <textarea name="comment"
                                                                                 class="spr-form-input spr-form-input-textarea"
                                                                                 placeholder="Write your comments here"
-                                                                                rows="10"></textarea>
+                                                                                rows="5"></textarea>
+                                                                            <x-input-error
+                                                                                :messages="$errors->get('comment')"
+                                                                                class="mt-2 text-danger" />
+
                                                                         </div>
                                                                     </div>
                                                                 </fieldset>
                                                                 <fieldset class="spr-form-actions">
-                                                                    <input type="submit" name="q"
-                                                                        class="spr-button spr-button-primary button button-primary btn btn-primary"
-                                                                        value="Submit Review">
+                                                                    <button type="submit"
+                                                                        class="spr-button spr-button-primary button button-primary btn btn-primary">Submit
+                                                                        Review</button>
                                                                 </fieldset>
                                                             </form>
                                                         </div>
-                                                        <!-- spar-from end -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -442,11 +446,9 @@
                                 </div>
                             </section>
                         </div>
-                        <!-- peoduct detail end -->
                     </div>
                 </div>
             </div>
         </div>
-        
     </section>
 @endsection
