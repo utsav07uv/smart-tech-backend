@@ -58,7 +58,7 @@ class WebsiteController extends Controller
     {
         $cart = Auth::user()
             ->cart()
-            ->with(['cartItems.product'])
+            ->with(['cartItems.product.seller'])
             ->withCount('cartItems')
             ->firstOrFail();
 
@@ -66,9 +66,7 @@ class WebsiteController extends Controller
             'cart' => $cart,
             'totalPrice' => $cart->totalPrice(),
             'totalDiscount' => $cart->totalDiscount(),
-            'gst' => $cart->totalPrice() * 0.1,
-            'shippingFee' => 20,
-            'grandTotal' => (($cart->totalPrice() * 1.1) - $cart->totalDiscount()) + 20,
+            'grandTotal' => $cart->totalPrice() - $cart->totalDiscount(),
         ]);
     }
 

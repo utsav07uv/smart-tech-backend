@@ -166,6 +166,7 @@
     <script src="{{ asset('smarttech/js/counter.js') }}"></script>
     <script src="{{ asset('smarttech/js/typewriter.js') }}"></script>
     <script src="{{ asset('smarttech/js/main.js') }}"></script>
+    @stack('js')
 </body>
 
 </html>

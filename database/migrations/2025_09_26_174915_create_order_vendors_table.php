@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_vendors', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); 
-            $table->string('order_number')->unique(); 
+            $table->unsignedBigInteger('order_id'); 
             $table->decimal('subtotal', 10, 2); 
             $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('gst', 10, 2)->default(0);
             $table->decimal('shipping_cost', 10, 2)->default(0);
             $table->decimal('total', 10, 2); 
             $table->string('status');
-            $table->unsignedBigInteger('shipping_address_id');
-            $table->timestamp('order_at');
+            $table->timestamp('cancelled_at');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_vendors');
     }
 };

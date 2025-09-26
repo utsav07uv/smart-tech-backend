@@ -38,9 +38,16 @@
                                         @php
                                             $product = $item->product;
                                             $discount = $product->calculateDiscount();
+                                            $productStockExists = $product->stock > 0;
                                         @endphp
-                                        <ul class="cart-wrap">
+                                        <ul class="cart-wrap {{ $productStockExists ? '' : 'bg-danger-50' }} px-4">
                                             <li class="item-info">
+                                                <div class="me-4">
+                                                    <input type="checkbox" class="cart-item-checkbox"
+                                                        data-price="{{ ($product->price - $discount) * $item->quantity }}"
+                                                        value="{{ $item->id }}" @disabled(!$productStockExists)>
+                                                </div>
+
                                                 <div class="item-img">
                                                     <a href="{{ route('frontend.product.show', $product->slug) }}"
                                                         data-animate="animate__fadeInUp">
@@ -48,12 +55,28 @@
                                                             alt="{{ $product->name }}">
                                                     </a>
                                                 </div>
+
                                                 <div class="item-text">
                                                     <a href="{{ route('frontend.product.show', $product->slug) }}"
                                                         data-animate="animate__fadeInUp">{{ $product->name }}</a>
                                                     <span class="item-option" data-animate="animate__fadeInUp">
                                                         <span class="item-title">Color:</span>
                                                         <span class="item-type">{{ $product->color }}</span>
+                                                    </span>
+                                                    @if ($productStockExists)
+                                                        <span class="item-option" data-animate="animate__fadeInUp">
+                                                            <span class="item-title">Stock:</span>
+                                                            <span class="item-type">{{ $product->stock }}</span>
+                                                        </span>
+                                                    @else
+                                                        <span class="item-option" data-animate="animate__fadeInUp">
+                                                            <span class="item-title">Availability:</span>
+                                                            <span class="item-type text-danger">Out of stock</span>
+                                                        </span>
+                                                    @endif
+                                                    <span class="item-option" data-animate="animate__fadeInUp">
+                                                        <span class="item-title">Vendor:</span>
+                                                        <span class="item-type">{{ $product->seller?->name }}</span>
                                                     </span>
                                                     <span class="item-option" data-animate="animate__fadeInUp">
                                                         <span class="item-price">AUD
@@ -73,7 +96,7 @@
                                                                 <button class="dec qtybutton minus"><i
                                                                         class="fa-solid fa-minus"></i></button>
                                                                 <input type="text" name="quantity"
-                                                                    value="{{ $item->quantity }}">
+                                                                    value="{{ $item->quantity ?? 1 }}">
                                                                 <button class="inc qtybutton plus"><i
                                                                         class="fa-solid fa-plus"></i></button>
                                                             </div>
@@ -173,7 +196,6 @@
                                                 </li>
                                             </ol>
                                         </div>
-
                                     </div>
                                 </div>
 
@@ -242,33 +264,16 @@
 
                             <div class="cart-total-wrap cart-info">
                                 <div class="cart-total">
-                                    <div class="total-amount" data-animate="animate__fadeInUp">
-                                        <h6 class="total-title">Sub Total</h6>
-                                        <span class="amount total-price">{{ $totalPrice }}</span>
-                                    </div>
-
-                                    <div class="total-amount" data-animate="animate__fadeInUp">
-                                        <h6 class="total-title">GST</h6>
-                                        <span class="amount total-price">{{ $gst }}</span>
-                                    </div>
-
-                                    <div class="total-amount" data-animate="animate__fadeInUp">
-                                        <h6 class="total-title">Shipping Fee</h6>
-                                        <span class="amount total-price">{{ $shippingFee }}</span>
-                                    </div>
-
-                                    <div class="total-amount" data-animate="animate__fadeInUp">
-                                        <h6 class="total-title">Discount</h6>
-                                        <span class="amount total-price">{{ $totalDiscount }}</span>
-                                    </div>
-
-                                    <div class="total-amount" data-animate="animate__fadeInUp">
+                                    <div class="total-amount">
                                         <h6 class="total-title">Total</h6>
-                                        <span class="amount total-price">{{ $grandTotal }}</span>
+                                        <span class="amount total-price" id="total-price">-</span>
                                     </div>
-
-                                    <div class="proceed-to-checkout" data-animate="animate__fadeInUp">
-                                        <a href="checkout.php" class="btn btn-style2">Proceed to pay</a>
+                                    <div class="proceed-to-checkout">
+                                        <form method="POST" action="{{ route('order.store') }}">
+                                            @csrf
+                                            <input type="hidden" id="cart-item-input" name="cart_item_ids">
+                                            <button type="submit" class="btn btn-style2">Proceed to pay</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -278,4 +283,27 @@
             </div>
         </div>
     </section>
+    @push('js')
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const checkboxes = document.querySelectorAll('.cart-item-checkbox:not(:disabled)');
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function () {
+                        const checked = Array.from(checkboxes).filter(cb => cb.checked);
+                        const totalPrice = checked.reduce((acc, cb) => {
+                            return acc + parseFloat(cb.dataset.price || 0);
+                        }, 0);
+
+                        const cartItemIds = checked.map(cb => cb.value);
+
+                        document.getElementById('total-price').innerText = `AUD ${totalPrice}`;
+                        document.getElementById('cart-item-input').value = JSON.stringify(cartItemIds);
+                        console.log("Total Price:", totalPrice);
+                        console.log("Cart Item IDs:", JSON.stringify(cartItemIds));
+                    });
+                });
+            });
+        </script>
+    @endpush
 @endsection

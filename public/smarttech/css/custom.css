@@ -90,3 +90,7 @@ ul.form-fill li.form-fill-li input {
     height: 175px;
     object-fit: contain;
 }
+
+.bg-danger-50 {
+    background-color: #FEF6F6;
+}

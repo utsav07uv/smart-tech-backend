@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\WishlistController;
@@ -42,4 +43,5 @@ Route::middleware('auth')->group(function () {
 
    Route::put('/address/{id}/default', [AddressController::class, 'markAsDefault'])->name('frontend.address.default');
    Route::resource('address', controller: AddressController::class)->names('address');
+   Route::resource('order', controller: OrderController::class)->names('order');
 });

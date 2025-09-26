@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     protected $fillable = [
-        'order_id',
+        'order_vendor_id',
         'product_id',
         'quantity',
         'price',
@@ -24,8 +24,8 @@ class OrderItem extends Model
         return ($this->discount / 100) * $this->price;
     }
 
-    public function order () {
-        return $this->belongsTo(Order::class, 'order_id', 'id');
+    public function orderVendor () {
+        return $this->belongsTo(OrderVendor::class, 'order_vendor_id', 'id');
     }
 
     public function product () {
