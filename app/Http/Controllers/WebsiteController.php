@@ -65,13 +65,13 @@ class WebsiteController extends Controller
             ->cart()
             ->with(['cartItems.product.seller'])
             ->withCount('cartItems')
-            ->firstOrFail();
+            ->first();
 
         return view('frontend.pages.cart', [
             'cart' => $cart,
-            'totalPrice' => $cart->totalPrice(),
-            'totalDiscount' => $cart->totalDiscount(),
-            'grandTotal' => $cart->totalPrice() - $cart->totalDiscount(),
+            'totalPrice' => $cart?->totalPrice(),
+            'totalDiscount' => $cart?->totalDiscount(),
+            'grandTotal' => $cart?->totalPrice() - $cart?->totalDiscount(),
         ]);
     }
 

@@ -29,7 +29,7 @@
                                 <div class="cart-title">
                                     <h6 data-animate="animate__fadeInUp">My cart:</h6>
                                     <span class="cart-count" data-animate="animate__fadeInUp">
-                                        <span class="cart-counter">{{ $cart->cart_items_count }}</span>
+                                        <span class="cart-counter">{{ $cart?->cart_items_count ?? 0 }}</span>
                                         <span class="cart-item-title ms-2">Items</span>
                                     </span>
                                 </div>
@@ -274,7 +274,7 @@
                                     <div class="proceed-to-checkout">
                                         <form method="POST" action="{{ route('order.store') }}">
                                             @csrf
-                                            <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                                            <input type="hidden" name="cart_id" value="{{ $cart?->id }}">
                                             <input type="hidden" id="cart-item-input" name="cart_item_ids">
                                             <button id="proceed-to-pay-btn" type="submit" class="btn btn-style2"
                                                 disabled>Proceed to pay</button>
