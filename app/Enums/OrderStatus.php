@@ -25,30 +25,35 @@ enum OrderStatus: string
             self::REFUNDED => 'Refunded',
         };
     }
-
     public function bgColor(): string
     {
         return match ($this) {
-            self::PAYMENTPENDING => 'bg-warning',
-            self::PROCESSING => 'bg-warning',
-            self::SHIPPED    => 'bg-info',
-            self::DELIVERED  => 'bg-success',
-            self::PARTIALLYDELIVERED => 'bg-success',
-            self::CANCELLED  => 'bg-danger',
-            self::REFUNDED   => 'bg-secondary',
+            self::PAYMENTPENDING, self::PROCESSING =>
+            'bg-warning bg-yellow-50',
+            self::SHIPPED =>
+            'bg-info bg-blue-50',
+            self::DELIVERED, self::PARTIALLYDELIVERED =>
+            'bg-success bg-green-50',
+            self::CANCELLED =>
+            'bg-danger bg-red-50',
+            self::REFUNDED =>
+            'bg-secondary bg-gray-50',
         };
     }
 
     public function textColor(): string
     {
         return match ($this) {
-            self::PAYMENTPENDING => 'text-warning',
-            self::PROCESSING => 'text-warning',
-            self::SHIPPED    => 'text-info',
-            self::DELIVERED  => 'text-success',
-            self::PARTIALLYDELIVERED => 'text-success',
-            self::CANCELLED  => 'text-danger',
-            self::REFUNDED   => 'text-secondary',
+            self::PAYMENTPENDING, self::PROCESSING =>
+            'text-warning text-yellow-500',
+            self::SHIPPED =>
+            'text-info text-blue-500',
+            self::DELIVERED, self::PARTIALLYDELIVERED =>
+            'text-success text-green-500',
+            self::CANCELLED =>
+            'text-danger text-red-500',
+            self::REFUNDED =>
+            'text-secondary text-gray-500',
         };
     }
 

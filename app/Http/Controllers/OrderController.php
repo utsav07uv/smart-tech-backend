@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Enums\OrderStatus;
 use App\Enums\StockMovementType;
+use App\Enums\UserRole;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderVendor;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,12 +17,29 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+
+        $orderVendors = OrderVendor::query()
+            ->when($user->role !== UserRole::ADMIN, fn($query) => $query->where('vendor_id', $user->id))
+            ->with([
+                'order.user',
+                'vendor'
+            ])
+            ->get();
+
+
+        return view('backend.order.index', [
+            'orderVendors' => $orderVendors
+        ]);
+    }
     public function store(Request $request)
     {
         $order = collect();
 
         try {
-            
+
             DB::transaction(function () use ($request, &$order) {
 
                 $user = Auth::user();

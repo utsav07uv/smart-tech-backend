@@ -4,6 +4,7 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerController;
@@ -23,6 +24,7 @@ Route::middleware(['auth', 'role:seller,admin'])->group(function(){
     Route::resource('stock', StockMovementController::class)->names('stock');
     Route::post('ad/toggle/{id}', [AdController::class, 'toggle'])->name('ad.toggle');
     Route::resource('ad', AdController::class)->names('ad');
+    Route::resource('order', OrderController::class)->names('order')->except('store');
 });
 
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->as('seller.')->group(function(){

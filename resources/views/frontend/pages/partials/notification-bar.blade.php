@@ -13,7 +13,6 @@
                             <a class="user-link collapsed" data-bs-toggle="collapse" href="#store-account"
                                 aria-expanded="false">
                                 @auth
-
                                     <span class="user-text">{{ auth()->user()->name }}'s account</span>
                                 @else
                                     <span class="user-text">My account</span>
@@ -22,6 +21,9 @@
 
                             </a>
                             <div class="user-drower collapse" id="store-account">
+                                @if (auth()->check() && auth()->user()->role != \App\Enums\UserRole::CUSTOMER) 
+                                    <a href="{{ route('dashboard') }}">My Dashboard</a>
+                                @endif
                                 @auth
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
