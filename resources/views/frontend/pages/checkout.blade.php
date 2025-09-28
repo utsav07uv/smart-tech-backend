@@ -25,12 +25,13 @@
                 <div class="col">
                     <div class="checkout-area">
                         <div class="billing-area">
-                            <form method="" action="">
+                            <form method="POST" action="{{ route('payment.store') }}">
                                 @csrf
+                                <input type="hidden" name="order_id" value="{{ $order->id }}">
                                 <div class="row g-3">
                                     <div class="col-6">
                                         <label class="w-100">
-                                            <input type="radio" name="payment_method" value="cod"
+                                            <input type="radio" name="method" value="cod"
                                                 class="d-none payment-option">
                                             <div class="card text-center p-3 h-100 border option-card">
                                                 <img src="{{ asset('smarttech/images/icon/cash-on-delivery.png') }}"
@@ -42,7 +43,7 @@
 
                                     <div class="col-6">
                                         <label class="w-100">
-                                            <input type="radio" name="payment_method" value="card"
+                                            <input type="radio" name="method" value="card"
                                                 class="d-none payment-option">
                                             <div class="card text-center p-3 h-100 border option-card">
                                                 <img src="{{ asset('smarttech/images/icon/card.png') }}"
@@ -65,23 +66,27 @@
                             <h2 data-animate="animate__fadeInUp">Your order</h2>
                             <ul class="order-history">
                                 <li class="order-details" data-animate="animate__fadeInUp">
-                                    <span>Order:</span>
+                                    <span>Order</span>
                                     <span>{{ $order->order_number }}</span>
                                 </li>
 
                                 <li class="order-details" data-animate="animate__fadeInUp">
-                                    <span>Placed on:</span>
+                                    <span>Placed on</span>
                                     <span>{{ $order->order_at->format('d M Y') }}</span>
                                 </li>
 
                                 <li class="order-details" data-animate="animate__fadeInUp">
-                                    <span>Status:</span>
+                                    <span>Status</span>
                                     <span
                                         class="badge text-white {{ $order->status->bgColor() }}">{{ $order->status->label() }}</span>
                                 </li>
                                 <li class="order-details" data-animate="animate__fadeInUp">
                                     <span>Subtotal</span>
                                     <span>{{ $order->subtotal }}</span>
+                                </li>
+                                <li class="order-details" data-animate="animate__fadeInUp">
+                                    <span>Discount</span>
+                                    <span>{{ $order->discount_amount }}</span>
                                 </li>
                                 <li class="order-details" data-animate="animate__fadeInUp">
                                     <span>GST (10%)</span>

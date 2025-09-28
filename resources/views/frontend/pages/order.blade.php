@@ -73,42 +73,20 @@
                                 <thead>
                                     <tr>
                                         <th>Order #</th>
-                                        <th>Date purchased</th>
+                                        <th>Placed on</th>
                                         <th>Status</th>
                                         <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>78A643CD409</td>
-                                        <td>April 08, 2025</td>
-                                        <td class="canceled">Canceled</td>
-                                        <td>$760.50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>34VB5540K83</td>
-                                        <td>April 11, 2025</td>
-                                        <td class="process">In progress</td>
-                                        <td>$540.30</td>
-                                    </tr>
-                                    <tr>
-                                        <td>78A643CD409</td>
-                                        <td>April 15, 2025</td>
-                                        <td class="delayed">Delayed</td>
-                                        <td>$412.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>78A643CD409</td>
-                                        <td>April 18, 2025</td>
-                                        <td class="delivered">Delivered</td>
-                                        <td>$805.00</td>
-                                    </tr>
-                                    <tr class="no-bottom-border">
-                                        <td>78A643CD409</td>
-                                        <td>April 21, 2025</td>
-                                        <td class="delivered">Delivered</td>
-                                        <td>$270.20</td>
-                                    </tr>
+                                    @foreach ($orders as $order) 
+                                        <tr>
+                                            <td><a href="{{ route('frontend.order.view', $order->order_number) }}">{{ $order->order_number }}</a></td>
+                                            <td>{{ $order->order_at->format('M d, Y') }}</td>
+                                            <td><span class="badge text-white {{ $order->status->bgColor() }}">{{ $order->status->label() }}</span></td>
+                                            <td>{{ $order->total }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

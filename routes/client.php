@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\WishlistController;
@@ -20,12 +21,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
    Route::get('/my-profile', [WebsiteController::class, 'profile'])->name('frontend.profile');
-   Route::get('/support', [WebsiteController::class, 'support'])->name('frontend.support');
    Route::put('/my-profile', [WebsiteController::class, 'updateProfile'])->name('frontend.profile.update');
    Route::get('/order-history', [WebsiteController::class, 'order'])->name('frontend.order');
    Route::get('/contact', [WebsiteController::class, 'contact'])->name('frontend.contact');
    Route::get('/shipping-address', [WebsiteController::class, 'address'])->name('frontend.address');
    Route::get('/checkout/{order}', [WebsiteController::class, 'checkout'])->name('frontend.checkout');
+   Route::get('/blogs-and-reviews/', [WebsiteController::class, 'blog'])->name('frontend.blog');
 
    Route::get('/wishlist', [WebsiteController::class, 'wishlist'])->name('frontend.product.wishlist');
    Route::get('/cart', [WebsiteController::class, 'cart'])->name('frontend.product.cart');
@@ -39,10 +40,13 @@ Route::middleware('auth')->group(function () {
    Route::post('/product/{id}/cart', [CartController::class, 'store'])->name('frontend.product.cart.add');
    Route::delete('/product/{id}/cart', [CartController::class, 'destroy'])->name('frontend.product.cart.destroy');
    Route::put('/product/{id}/cart', [CartController::class, 'update'])->name('frontend.product.cart.update');
+
+   Route::get('/order/{order}/view', [WebsiteController::class, 'viewOrder'])->name('frontend.order.view');
    
    Route::resource('review', controller: ReviewController::class)->names('review');
 
    Route::put('/address/{id}/default', [AddressController::class, 'markAsDefault'])->name('frontend.address.default');
    Route::resource('address', controller: AddressController::class)->names('address');
    Route::resource('order', OrderController::class)->names('order');
+   Route::resource('payment', PaymentController::class)->names('payment');
 });

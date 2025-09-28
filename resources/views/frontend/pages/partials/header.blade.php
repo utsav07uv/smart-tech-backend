@@ -199,7 +199,7 @@
                                                             <span class="sp-link-title">Vendor</span> </a>
                                                     </li>
                                                     <li class="menu-link">
-                                                        <a href="blog.php" class="link-title">
+                                                        <a href="{{ route('frontend.blog') }}" class="link-title">
                                                             <span class="sp-link-title">Blog and Reviews</span>
                                                         </a>
                                                     </li>

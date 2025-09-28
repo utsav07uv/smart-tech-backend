@@ -91,6 +91,10 @@ ul.form-fill li.form-fill-li input {
     object-fit: contain;
 }
 
+.check-pro ul.check-ul li .check-pro-img img {
+    width: 80px;
+}
+
 .bg-danger-50 {
     background-color: #FEF6F6;
 }

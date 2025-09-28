@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\OrderStatus;
+use App\Enums\PaymentStatus;
 use App\Enums\UserRole;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Ad;
@@ -112,7 +114,10 @@ class WebsiteController extends Controller
 
     public function order()
     {
-        return view('frontend.pages.order');
+        $orders = Order::where('user_id', Auth::id())->get();
+        return view('frontend.pages.order', [
+            'orders' => $orders
+        ]);
     }
     public function profile()
     {
@@ -122,6 +127,11 @@ class WebsiteController extends Controller
     public function contact()
     {
         return view('frontend.pages.contact');
+    }
+
+    public function blog()
+    {
+        return view('frontend.pages.blog');
     }
 
     public function address()
@@ -134,19 +144,42 @@ class WebsiteController extends Controller
         $order = Order::where([
             'order_number' => $orderNumber,
             'user_id' => Auth::id(),
+            'status' => OrderStatus::PAYMENTPENDING
         ])
             ->with([
                 'orderVendors.vendor',
                 'orderVendors.orderItems.product'
             ])
-            ->firstOrFail();
+            ->first();
 
 
         if (!$order) {
-            return back()->withError('No oder found.');
+            return redirect(route('home'));
         }
 
         return view('frontend.pages.checkout', [
+            'order' => $order
+        ]);
+    }
+
+    public function viewOrder(string $orderNumber)
+    {
+        $order = Order::where([
+            'order_number' => $orderNumber,
+            'user_id' => Auth::id(),
+        ])
+            ->with([
+                'orderVendors.vendor',
+                'orderVendors.orderItems.product'
+            ])
+            ->first();
+
+
+        if (!$order) {
+            return redirect(route('home'));
+        }
+
+        return view('frontend.pages.order-view', [
             'order' => $order
         ]);
     }

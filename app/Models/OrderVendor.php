@@ -48,4 +48,8 @@ class OrderVendor extends Model
     public function totalDiscount() {
         return $this->orderItems->sum(fn($i) => $i->product->calculateDiscount() * $i->quantity);
     }
+
+    public function payments () {
+        return $this->hasMany(Payment::class, 'order_vendor_id', 'id');
+    }
 }
