@@ -43,7 +43,6 @@
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="{{ route('frontend.order') }}" class="active">
                                             <span>Orders</span>
-                                            <span class="pro-count">5</span>
                                         </a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
@@ -84,7 +83,7 @@
                                             <td><a href="{{ route('frontend.order.view', $order->order_number) }}">{{ $order->order_number }}</a></td>
                                             <td>{{ $order->order_at->format('M d, Y') }}</td>
                                             <td><span class="badge text-white {{ $order->status->bgColor() }}">{{ $order->status->label() }}</span></td>
-                                            <td>{{ $order->total }}</td>
+                                            <td>AUD {{ $order->total }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

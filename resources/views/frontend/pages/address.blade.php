@@ -43,7 +43,7 @@
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="order.php">
                                             <span>Orders</span>
-                                            <span class="pro-count">5</span>
+
                                         </a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
@@ -160,21 +160,19 @@
                                                 <label>Email</label>
                                                 <input type="email" name="email" class="spr-form-input"
                                                     placeholder="Email Address*" required autofocus>
-                                                <x-input-error :messages="$errors->get('email')"
-                                                    class="mt-2 text-danger" />
+                                                <x-input-error :messages="$errors->get('email')" class="mt-2 text-danger" />
                                             </li>
 
                                             <li class="billing-li" data-animate="animate__fadeInUp">
                                                 <label>Phone</label>
                                                 <input type="tel" name="phone" class="spr-form-input"
                                                     placeholder="Phone Number*" required autofocus>
-                                                <x-input-error :messages="$errors->get('phone')"
-                                                    class="mt-2 text-danger" />
+                                                <x-input-error :messages="$errors->get('phone')" class="mt-2 text-danger" />
                                             </li>
 
                                             <li class="billing-li" data-animate="animate__fadeInUp">
-                                                <textarea name="address_line1" class="w-100"
-                                                    placeholder="Address line" rows="5"></textarea>
+                                                <textarea name="address_line1" class="w-100" placeholder="Address line"
+                                                    rows="5"></textarea>
                                                 <x-input-error :messages="$errors->get('address_line1')"
                                                     class="mt-2 text-danger" />
 

@@ -43,7 +43,7 @@
                                     <li class="profile-li" data-animate="animate__fadeInUp">
                                         <a href="{{ route('frontend.order') }}">
                                             <span>Orders</span>
-                                            <span class="pro-count">5</span>
+
                                         </a>
                                     </li>
                                     <li class="profile-li" data-animate="animate__fadeInUp">
