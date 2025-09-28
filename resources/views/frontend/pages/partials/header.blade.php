@@ -1,6 +1,8 @@
 @php
-    $categories = \App\Models\Category::select(['id', 'name', 'image'])->get();
+$categories = \App\Models\Category::select(['id', 'name', 'image'])->get();
 @endphp
+
+
 <header class="main-header" id="main-header">
     <div class="header-top-area">
         <div class="container">
@@ -35,10 +37,8 @@
                                             <form action="{{ route('frontend.product.index') }}" method="get"
                                                 class="search-bar">
                                                 <div class="form-search">
-
                                                     <input type="search" name="search" placeholder="Search our catalog"
-                                                        class="search-input" value="{{ request('search') }}">
-
+                                                        class="search-input">
                                                     <button type="submit" class="search-btn"><i
                                                             class="fa-solid fa-magnifying-glass"></i></button>
                                                 </div>
@@ -64,9 +64,8 @@
                                                             </path>
                                                         </svg></span>
                                                     @auth
-                                                        <span class="wishlist-count">
-                                                            {{ auth()->user()->wishlist?->wishlistItems()->count() ?? 0 }}
-                                                        </span>
+                                                        <span
+                                                            class="wishlist-count">{{ auth()->user()?->wishlist?->wishlistItems()?->count() ?? 0 }}</span>
                                                     @endauth
                                                 </span>
                                             </a>
@@ -74,7 +73,7 @@
                                     </li>
                                     <li class="side-wrap cart-wrap">
                                         <div class="cart-wrapper">
-                                            <a href="{{ route('frontend.product.cart') }}">
+                                            <a href="{{ route('frontend.product.cart') }}" class="js-cart-drawer">
                                                 <span class="cart-icon-count">
                                                     <span class="cart-icon"><svg viewBox="0 0 24 24" width="24"
                                                             height="24" stroke="currentColor" stroke-width="2"
@@ -87,9 +86,8 @@
                                                             </path>
                                                         </svg></span>
                                                     @auth
-                                                        <span class="cart-count">
-                                                            {{ auth()->user()->cart?->cartItems()->count() ?? 0 }}
-                                                        </span>
+                                                        <span
+                                                            class="cart-count">{{ auth()->user()?->cart?->cartItems()?->count() ?? 0 }}</span>
                                                     @endauth
                                                 </span>
                                             </a>
@@ -116,7 +114,7 @@
                                         class="search-bar">
                                         <div class="form-search">
                                             <input type="search" name="search" placeholder="Search our catalog"
-                                                class="search-input" value="{{ request('search') }}">
+                                                class="search-input">
                                             <button type="submit" class="search-btn"><i
                                                     class="fa-solid fa-magnifying-glass"></i></button>
                                         </div>
@@ -139,10 +137,8 @@
                                     </button>
                                 </div>
                                 <div class="navbar-collapse" id="navbarContent">
-
                                     <div class="categor-menu">
-                                        <a href="#categor-collapse"
-                                            class="cate-info {{ request()->routeIs('home') ? '' : 'collapsed' }}"
+                                        <a href="#categor-collapse" class="cate-info collapsed"
                                             data-bs-toggle="collapse" aria-expanded="true">
                                             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"
                                                 stroke-width="2" fill="none" stroke-linecap="round"
@@ -152,19 +148,16 @@
                                                 <line x1="3" y1="18" x2="21" y2="18"></line>
                                             </svg>
                                             <span>Top Categories</span></a>
-                                        <div class="catwrap collapse {{ request()->routeIs('home') ? 'show' : '' }}"
-                                            id="categor-collapse">
+                                        <div class="catwrap collapse {{ request()->routeIs('home') ? 'show' : '' }}" id="categor-collapse">
                                             <ul class="main-menu">
                                                 @foreach ($categories as $category)
                                                     <li class="menu-link">
-                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}"
-                                                            class="link-title">
+                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}" class="link-title">
                                                             <img src="{{ $category->image }}" class="img-fluid"
                                                                 alt="{{ $category->name }}">
                                                             <span class="sp-link-title">{{ $category->name }}</span>
                                                         </a>
-                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}"
-                                                            class="link-title link-title-lg">
+                                                        <a href="{{ route('frontend.product.index', ['category' => $category->name]) }}" class="link-title link-title-lg">
                                                             <img src="{{ $category->image }}" class="img-fluid"
                                                                 alt="{{ $category->name }}">
                                                             <span class="sp-link-title">{{ $category->name }}</span>
@@ -189,19 +182,43 @@
                                         <div class="mainmenu-content collapse" id="main-collapse">
                                             <div class="main-wrap">
                                                 <ul class="main-menu">
-
                                                     <li class="menu-link">
                                                         <a href="{{ route('home') }}" class="link-title">
-                                                            <span class="sp-link-title">Home</span> </a>
+                                                            <span class="sp-link-title">Home</span>
+                                                        </a>
+                                                        <a href="{{ route('home') }}" class="link-title link-title-lg">
+                                                            <span class="sp-link-title">Home</span>
+                                                        </a>
                                                     </li>
 
                                                     <li class="menu-link">
                                                         <a href="{{ route('frontend.vendor.index') }}"
                                                             class="link-title">
-                                                            <span class="sp-link-title">Vendor</span> </a>
+                                                            <span class="sp-link-title">Vendors</span>
+                                                        </a>
+                                                        <a href="{{ route('frontend.vendor.index') }}"
+                                                            class="link-title link-title-lg">
+                                                            <span class="sp-link-title">Vendors</span>
+                                                        </a>
                                                     </li>
+
+                                                    <li class="menu-link">
+                                                        <a href="{{ route('frontend.product.index') }}"
+                                                            class="link-title">
+                                                            <span class="sp-link-title">Products</span>
+                                                        </a>
+                                                        <a href="{{ route('frontend.product.index') }}"
+                                                            class="link-title link-title-lg">
+                                                            <span class="sp-link-title">Products</span>
+                                                        </a>
+                                                    </li>
+
                                                     <li class="menu-link">
                                                         <a href="{{ route('frontend.blog') }}" class="link-title">
+                                                            <span class="sp-link-title">Reviews</span>
+                                                        </a>
+                                                        <a href="{{ route('frontend.blog') }}"
+                                                            class="link-title link-title-lg">
                                                             <span class="sp-link-title">Reviews</span>
                                                         </a>
                                                     </li>
@@ -209,12 +226,22 @@
                                                         <a href="{{ route('frontend.profile') }}" class="link-title">
                                                             <span class="sp-link-title">My Profile</span>
                                                         </a>
+                                                        <a href="{{ route('frontend.profile') }}"
+                                                            class="link-title link-title-lg">
+                                                            <span class="sp-link-title">My Profile</span>
+                                                        </a>
                                                     </li>
                                                     <li class="menu-link">
                                                         <a href="{{ route('frontend.contact') }}" class="link-title">
                                                             <span class="sp-link-title">Contact</span>
                                                         </a>
+                                                        <a href="{{ route('frontend.contact') }}"
+                                                            class="link-title link-title-lg">
+                                                            <span class="sp-link-title">Contact</span>
+                                                        </a>
                                                     </li>
+
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -229,6 +256,7 @@
                                             </li>
                                         </ul>
                                     </div>
+
                                 </div>
                             </nav>
                         </div>

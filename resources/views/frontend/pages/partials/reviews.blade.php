@@ -19,14 +19,14 @@
                     @foreach ($productReviews as $review)
                         <div class="col-lg-4">
                             <div class="list-group-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-3">
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-3">
                                         <img src="{{ $review->product->image }}" alt="{{ $review->product->name }}"
                                             class="img-fluid rounded">
                                     </div>
 
                                     <!-- Review Content -->
-                                    <div class="col-md-9">
+                                    <div class="col-9">
                                         <!-- Product Info -->
                                         <h6 class="mb-1"><a href="{{ route('frontend.product.show', $review->product->slug) }}">{{ $review->product->name }}</a></h6>
                                         <small class="text-muted">Vendor:

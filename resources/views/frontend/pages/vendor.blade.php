@@ -11,7 +11,7 @@
                                 <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-li">
-                                <span class="breadcrumb-text">Vender</span>
+                                <span class="breadcrumb-text">Vendors</span>
                             </li>
                         </ul>
                         <!-- breadcrumb-list end -->

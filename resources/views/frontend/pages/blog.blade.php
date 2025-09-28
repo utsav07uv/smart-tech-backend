@@ -24,22 +24,21 @@
             <div class="row">
                 @if ($productReviews->isNotEmpty())
                     @foreach ($productReviews as $review)
-                        <div class="col">
+                        <div class="col-12 col-md-6 mb-3">
                             <div class="list-group-item">
                                 <div class="row align-items-center">
-                                    <div class="col-md-3">
+                                    <div class="col-3">
                                         <img src="{{ $review->product->image }}" alt="{{ $review->product->name }}"
                                             class="img-fluid rounded">
                                     </div>
 
-                                    <!-- Review Content -->
-                                    <div class="col-md-9">
-                                        <!-- Product Info -->
-                                        <h6 class="mb-1"><a href="{{ route('frontend.product.show', $review->product->slug) }}">{{ $review->product->name }}</a></h6>
+                                    <div class="col-9">
+                                        <h6 class="mb-1"><a
+                                                href="{{ route('frontend.product.show', $review->product->slug) }}">{{ $review->product->name }}</a>
+                                        </h6>
                                         <small class="text-muted">Vendor:
                                             {{ $review->product->seller->name }}</small>
 
-                                        <!-- Reviewer Info -->
                                         <div class="d-flex justify-content-between align-items-center mt-2">
                                             <span><strong>{{ $review->user->name }}</strong></span>
                                             <small class="text-muted">{{ $review->created_at->diffForHumans() }}</small>
