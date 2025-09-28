@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
    Route::get('/products', [WebsiteController::class, 'productIndex'])->name('frontend.product.index');
    Route::get('/products/{slug}', [WebsiteController::class, 'productShow'])->name('frontend.product.show');
+   Route::get('/customer/reviews', [WebsiteController::class, 'blog'])->name('frontend.blog');
 
 Route::middleware('auth')->group(function () {
    Route::get('/my-profile', [WebsiteController::class, 'profile'])->name('frontend.profile');
@@ -26,7 +27,6 @@ Route::middleware('auth')->group(function () {
    Route::get('/contact', [WebsiteController::class, 'contact'])->name('frontend.contact');
    Route::get('/shipping-address', [WebsiteController::class, 'address'])->name('frontend.address');
    Route::get('/checkout/{order}', [WebsiteController::class, 'checkout'])->name('frontend.checkout');
-   Route::get('/customer/reviews', [WebsiteController::class, 'blog'])->name('frontend.blog');
 
    Route::get('/wishlist', [WebsiteController::class, 'wishlist'])->name('frontend.product.wishlist');
    Route::get('/cart', [WebsiteController::class, 'cart'])->name('frontend.product.cart');
