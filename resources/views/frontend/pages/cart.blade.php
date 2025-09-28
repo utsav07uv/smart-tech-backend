@@ -80,7 +80,7 @@
                                                     </span>
                                                     <span class="item-option" data-animate="animate__fadeInUp">
                                                         <span class="item-price">AUD
-                                                            {{ $product->price - $product->calculateDiscount() }}</span><span
+                                                            {{ $product->price - $discount }}</span><span
                                                             class="ms-2">after {{ $product->discount }} % off</span>
                                                     </span>
                                                 </div>

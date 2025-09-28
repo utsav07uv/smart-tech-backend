@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('shipping_cost', 10, 2)->default(0);
             $table->decimal('total', 10, 2); 
             $table->string('status');
-            $table->timestamp('cancelled_at');
+            $table->timestamp('cancelled_at')->nullable();
             $table->timestamps();
         });
     }

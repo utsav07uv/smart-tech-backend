@@ -88,6 +88,6 @@ class User extends Authenticatable
     }
 
     public function defaultAddress () {
-        return $this->hasOne(Address::class, 'user_id', 'id')->where('is_default', true);
+        return $this->hasOne(Address::class, 'user_id', 'id')->where('is_default', true) ?? null;
     }
 }
