@@ -106,8 +106,8 @@ class UserController extends Controller
             $user = User::findOrFail($id);
 
             if ($request->hasFile('avatar')) {
-                $filePath = upload_image($request->avatar, 'uploads/user');
                 delete_file_if_exists($user->getRawOriginal('avatar'));
+                $filePath = upload_image($request->avatar, 'uploads/user');
             }
 
             $user->update([
