@@ -38,6 +38,13 @@
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 </div>
 
+<div class="mt-4">
+            <x-input-label for="avatar" :value="__('Avatar')" />
+            <x-image-input id="avatar" name="avatar" class="mt-1 block w-full" :value="old('avatar')"
+                :image="@$user->avatar" autofocus autocomplete="avatar" />
+            <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
+        </div>
+
 <div class="flex items-center mt-4">
     <x-primary-button>
         Save

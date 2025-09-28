@@ -291,7 +291,7 @@
                         <div class="menu-dropdown menu-single collapse" id="menu-single">
                             <ul class="ul">
                                 <li class="menusingle-li">
-                                    <a href="index.php" class="menusingle-title">
+                                    <a href="{{ route('home') }}" class="menusingle-title">
                                         <span class="sp-link-title">Home 01</span>
                                     </a>
                                 </li>
@@ -326,7 +326,7 @@
                                     </a>
                                 </li>
                                 <li class="menusingle-li">
-                                    <a href="index.php" class="menusingle-title">
+                                    <a href="{{ route('home') }}" class="menusingle-title">
                                         <span class="sp-link-title">Home 08</span>
                                     </a>
                                 </li>

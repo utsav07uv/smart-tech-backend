@@ -7,7 +7,7 @@
                     <div class="breadcrumb-index">
                         <ul class="breadcrumb-ul">
                             <li class="breadcrumb-li">
-                                <a class="breadcrumb-link" href="index.php">Home</a>
+                                <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-li">
                                 <span class="breadcrumb-text">Your shopping cart</span>
@@ -33,115 +33,108 @@
                                         <span class="cart-item-title ms-2">Items</span>
                                     </span>
                                 </div>
-                                <div class="item-wrap">
-                                    @forelse ($cart->cartItems as $item)
-                                        @php
-                                            $product = $item->product;
-                                            $discount = $product->calculateDiscount();
-                                            $productStockExists = $product->stock > 0;
-                                        @endphp
-                                        <ul class="cart-wrap {{ $productStockExists ? '' : 'bg-danger-50' }} px-4">
-                                            <li class="item-info">
-                                                <div class="me-4">
-                                                    <input type="checkbox" class="cart-item-checkbox"
-                                                        data-price="{{ ($product->price - $discount) * $item->quantity }}"
-                                                        value="{{ $item->id }}" @disabled(!$productStockExists)>
-                                                </div>
+                                @if ($cart && $cart->cartItems->isNotEmpty())
+                                    <div class="item-wrap">
+                                        @forelse ($cart->cartItems as $item)
+                                            @php
+                                                $product = $item->product;
+                                                $discount = $product->calculateDiscount();
+                                                $productStockExists = $product->stock > 0;
+                                            @endphp
+                                            <ul class="cart-wrap {{ $productStockExists ? '' : 'bg-danger-50' }} px-4">
+                                                <li class="item-info">
+                                                    <div class="me-4">
+                                                        <input type="checkbox" class="cart-item-checkbox"
+                                                            data-price="{{ ($product->price - $discount) * $item->quantity }}"
+                                                            value="{{ $item->id }}" @disabled(!$productStockExists)>
+                                                    </div>
 
-                                                <div class="item-img">
-                                                    <a href="{{ route('frontend.product.show', $product->slug) }}"
-                                                        data-animate="animate__fadeInUp">
-                                                        <img src="{{ $product->image }}" class="img-fluid"
-                                                            alt="{{ $product->name }}">
-                                                    </a>
-                                                </div>
+                                                    <div class="item-img">
+                                                        <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                            data-animate="animate__fadeInUp">
+                                                            <img src="{{ $product->image }}" class="img-fluid"
+                                                                alt="{{ $product->name }}">
+                                                        </a>
+                                                    </div>
 
-                                                <div class="item-text">
-                                                    <a href="{{ route('frontend.product.show', $product->slug) }}"
-                                                        data-animate="animate__fadeInUp">{{ $product->name }}</a>
-                                                    <span class="item-option" data-animate="animate__fadeInUp">
-                                                        <span class="item-title">Color:</span>
-                                                        <span class="item-type">{{ $product->color }}</span>
-                                                    </span>
-                                                    @if ($productStockExists)
+                                                    <div class="item-text">
+                                                        <a href="{{ route('frontend.product.show', $product->slug) }}"
+                                                            data-animate="animate__fadeInUp">{{ $product->name }}</a>
                                                         <span class="item-option" data-animate="animate__fadeInUp">
-                                                            <span class="item-title">Stock:</span>
-                                                            <span class="item-type">{{ $product->stock }}</span>
+                                                            <span class="item-title">Color:</span>
+                                                            <span class="item-type">{{ $product->color }}</span>
                                                         </span>
-                                                    @else
-                                                        <span class="item-option" data-animate="animate__fadeInUp">
-                                                            <span class="item-title">Availability:</span>
-                                                            <span class="item-type text-danger">Out of stock</span>
-                                                        </span>
-                                                    @endif
-                                                    <span class="item-option" data-animate="animate__fadeInUp">
-                                                        <span class="item-title">Vendor:</span>
-                                                        <span class="item-type">{{ $product->seller?->name }}</span>
-                                                    </span>
-                                                    <span class="item-option" data-animate="animate__fadeInUp">
-                                                        <span class="item-price">AUD
-                                                            {{ $product->price - $discount }}</span><span
-                                                            class="ms-2">after {{ $product->discount }} % off</span>
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="item-qty">
-                                                <div class="product-quantity-action">
-                                                    <form method="POST"
-                                                        action="{{ route('frontend.product.cart.update', $product->id) }}">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="product-quantity" data-animate="animate__fadeInUp">
-                                                            <div class="cart-plus-minus">
-                                                                <button class="dec qtybutton minus"><i
-                                                                        class="fa-solid fa-minus"></i></button>
-                                                                <input type="text" name="quantity"
-                                                                    value="{{ $item->quantity ?? 1 }}">
-                                                                <button class="inc qtybutton plus"><i
-                                                                        class="fa-solid fa-plus"></i></button>
-                                                            </div>
-                                                        </div>
-                                                        <div class="item-remove">
-                                                            <span class="remove-wrap" data-animate="animate__fadeInUp">
-
-                                                                <a href="{{ route('frontend.product.cart.update', $product->id) }}"
-                                                                    onclick="event.preventDefault();this.closest('form').submit();"
-                                                                    class="text-success"
-                                                                    data-animate="animate__fadeInUp">Update</a>
+                                                        @if ($productStockExists)
+                                                            <span class="item-option" data-animate="animate__fadeInUp">
+                                                                <span class="item-title">Stock:</span>
+                                                                <span class="item-type">{{ $product->stock }}</span>
                                                             </span>
-                                                        </div>
-                                                    </form>
-                                                </div>
-
-                                                <div class="item-remove">
-                                                    <span class="remove-wrap ms-2" data-animate="animate__fadeInUp">
+                                                        @else
+                                                            <span class="item-option" data-animate="animate__fadeInUp">
+                                                                <span class="item-title">Availability:</span>
+                                                                <span class="item-type text-danger">Out of stock</span>
+                                                            </span>
+                                                        @endif
+                                                        <span class="item-option" data-animate="animate__fadeInUp">
+                                                            <span class="item-title">Vendor:</span>
+                                                            <span class="item-type">{{ $product->seller?->name }}</span>
+                                                        </span>
+                                                        <span class="item-option" data-animate="animate__fadeInUp">
+                                                            <span class="item-price">AUD
+                                                                {{ $product->price - $discount }}</span><span class="ms-2">after
+                                                                {{ $product->discount }} % off</span>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-qty">
+                                                    <div class="product-quantity-action">
                                                         <form method="POST"
-                                                            action="{{ route('frontend.product.cart.destroy', $product->id) }}">
+                                                            action="{{ route('frontend.product.cart.update', $product->id) }}">
                                                             @csrf
-                                                            @method('DELETE')
-                                                            <a href="{{ route('frontend.product.cart.destroy', $product->id) }}"
-                                                                onclick="event.preventDefault();this.closest('form').submit();"
-                                                                class="text-danger" data-animate="animate__fadeInUp">Remove</a>
+                                                            @method('PUT')
+                                                            <div class="product-quantity" data-animate="animate__fadeInUp">
+                                                                <div class="cart-plus-minus">
+                                                                    <button class="dec qtybutton minus"><i
+                                                                            class="fa-solid fa-minus"></i></button>
+                                                                    <input type="text" name="quantity"
+                                                                        value="{{ $item->quantity ?? 1 }}">
+                                                                    <button class="inc qtybutton plus"><i
+                                                                            class="fa-solid fa-plus"></i></button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="item-remove">
+                                                                <span class="remove-wrap" data-animate="animate__fadeInUp">
+
+                                                                    <a href="{{ route('frontend.product.cart.update', $product->id) }}"
+                                                                        onclick="event.preventDefault();this.closest('form').submit();"
+                                                                        class="text-success"
+                                                                        data-animate="animate__fadeInUp">Update</a>
+                                                                </span>
+                                                            </div>
                                                         </form>
-                                                    </span>
-                                                </div>
-                                            </li>
-                                            <li class="item-price" data-animate="animate__fadeInUp">
-                                                <span class="amount full-price">AUD
-                                                    {{ $item->quantity * ($product->price - $discount) }}</span>
-                                            </li>
-                                        </ul>
-                                    @empty
-                                        <div class="drawer-cart-empty my-5 text-center">
-                                            <div class="drawer-scrollable">
-                                                <h2>Your cart is currently empty</h2>
-                                                <a href="{{ route('home') }}" class="btn btn-style2 mt-4">Continue
-                                                    shopping</a>
-                                            </div>
-                                        </div>
-                                    @endforelse
-                                </div>
-                                @if ($cart->cartItems->isNotEmpty())
+                                                    </div>
+
+                                                    <div class="item-remove">
+                                                        <span class="remove-wrap ms-2" data-animate="animate__fadeInUp">
+                                                            <form method="POST"
+                                                                action="{{ route('frontend.product.cart.destroy', $product->id) }}">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <a href="{{ route('frontend.product.cart.destroy', $product->id) }}"
+                                                                    onclick="event.preventDefault();this.closest('form').submit();"
+                                                                    class="text-danger" data-animate="animate__fadeInUp">Remove</a>
+                                                            </form>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li class="item-price" data-animate="animate__fadeInUp">
+                                                    <span class="amount full-price">AUD
+                                                        {{ $item->quantity * ($product->price - $discount) }}</span>
+                                                </li>
+                                            </ul>
+                                        @empty
+                                        @endforelse
+                                    </div>
                                     <div class="cart-buttons" data-animate="animate__fadeInUp">
                                         <a href="{{ route('home') }}" class="btn-style2">Continue shopping</a>
                                         <form method="POST" action="{{ route('frontend.cart.clear') }}">
@@ -151,6 +144,14 @@
                                                 onclick="event.preventDefault();this.closest('form').submit();"
                                                 class="btn btn-style2">Clear cart</a>
                                         </form>
+                                    </div>
+                                @else
+                                    <div class="drawer-cart-empty my-5 text-center">
+                                        <div class="drawer-scrollable">
+                                            <h2>Your cart is currently empty</h2>
+                                            <a href="{{ route('home') }}" class="btn btn-style2 mt-4">Continue
+                                                shopping</a>
+                                        </div>
                                     </div>
                                 @endif
                             </div>
@@ -268,13 +269,15 @@
                                         <h6 class="total-title">Total</h6>
                                         <span class="amount total-price" id="total-price">-</span>
                                     </div>
-                                    <p class="text-muted fst-italic">Tick items from cart to order. GST & shipping charges apply.</p>
+                                    <p class="text-muted fst-italic">Tick items from cart to order. GST & shipping charges
+                                        apply.</p>
                                     <div class="proceed-to-checkout">
                                         <form method="POST" action="{{ route('order.store') }}">
                                             @csrf
                                             <input type="hidden" name="cart_id" value="{{ $cart->id }}">
                                             <input type="hidden" id="cart-item-input" name="cart_item_ids">
-                                            <button id="proceed-to-pay-btn" type="submit" class="btn btn-style2" disabled>Proceed to pay</button>
+                                            <button id="proceed-to-pay-btn" type="submit" class="btn btn-style2"
+                                                disabled>Proceed to pay</button>
                                         </form>
                                     </div>
                                 </div>
@@ -289,7 +292,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const checkboxes = document.querySelectorAll('.cart-item-checkbox:not(:disabled)');
-                
+
                 checkboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function () {
                         const checked = Array.from(checkboxes).filter(cb => cb.checked);

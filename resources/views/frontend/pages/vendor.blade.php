@@ -8,7 +8,7 @@
                         <!-- breadcrumb-list start -->
                         <ul class="breadcrumb-ul">
                             <li class="breadcrumb-li">
-                                <a class="breadcrumb-link" href="index.php">Home</a>
+                                <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
                             </li>
                             <li class="breadcrumb-li">
                                 <span class="breadcrumb-text">Vender</span>
@@ -35,7 +35,8 @@
                                                     <li class="pro-item-li" data-animate="animate__fadeInUp">
                                                         <div class="single-product-wrap">
                                                             <div class="product-image banner-hover">
-                                                                <a href="{{ route('frontend.product.index', ['vendor' => $vendor->name]) }}" class="pro-img">
+                                                                <a href="{{ route('frontend.product.index', ['vendor' => $vendor->name]) }}"
+                                                                    class="pro-img">
                                                                     <img src="{{ $vendor->avatar }}"
                                                                         class="img-fluid img1 mobile-img1"
                                                                         alt="{{ $vendor->name }}">
@@ -48,7 +49,8 @@
                                                                 <div class="product-content">
                                                                     <div class="product-title">
                                                                         <h3>
-                                                                            <a href="{{ route('frontend.product.index', ['vendor' => $vendor->name]) }}">{{ $vendor->name }}</a>
+                                                                            <a
+                                                                                href="{{ route('frontend.product.index', ['vendor' => $vendor->name]) }}">{{ $vendor->name }}</a>
                                                                         </h3>
                                                                         <p>{{ $vendor->phone }}</p>
                                                                     </div>

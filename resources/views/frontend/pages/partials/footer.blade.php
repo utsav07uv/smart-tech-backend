@@ -7,7 +7,7 @@
                         <li class="ftinfo-li ft-logo" data-animate="animate__fadeInUp">
                             <div class="footer-logo-con">
                                 <div class="footer-logo">
-                                    <a href="index.php" class="theme-logo">
+                                    <a href="{{ route('home') }}" class="theme-logo">
                                         <img src="{{ asset('smarttech/images/logo.png') }}" class="img-fluid"
                                             alt="logo">
                                     </a>
@@ -89,13 +89,13 @@
                         <li class="ft-copryright-li ft-payment">
                             <ul class="payment-icon">
                                 <li>
-                                    <a href="index.php">
+                                    <a href="{{ route('home') }}">
                                         <img src="{{ asset('smarttech/images/payment/pay-1.jpg') }}" class="img-fluid"
                                             alt="pay1">
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="index.php">
+                                    <a href="{{ route('home') }}">
                                         <img src="{{ asset('smarttech/images/payment/pay-2.jpg') }}" class="img-fluid"
                                             alt="pay2">
                                     </a>

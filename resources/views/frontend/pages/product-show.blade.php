@@ -266,7 +266,7 @@
                                         <div class="product-payment-image">
                                             <ul class="payment-icon">
                                                 <li>
-                                                    <a href="index.php"><svg viewBox="0 0 38 24"
+                                                    <a href="{{ route('home') }}"><svg viewBox="0 0 38 24"
                                                             xmlns="http://www.w3.org/2000/svg" role="img" width="38"
                                                             height="24">
                                                             <title id="visa">Visa</title>
@@ -282,7 +282,7 @@
                                                         </svg></a>
                                                 </li>
                                                 <li>
-                                                    <a href="index.php"><svg viewBox="0 0 38 24"
+                                                    <a href="{{ route('home') }}"><svg viewBox="0 0 38 24"
                                                             xmlns="http://www.w3.org/2000/svg" role="img" width="38"
                                                             height="24">
                                                             <title id="master">Mastercard</title>

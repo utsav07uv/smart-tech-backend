@@ -45,12 +45,17 @@ class UserController extends Controller
 
         try {
 
+             if ($request->hasFile('avatar')) {
+                $filePath = upload_image($request->avatar, 'uploads/user');
+            }
+
             $user = User::query()->create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
                 'approved_at' => $request->role === UserRole::ADMIN->value ? now() : null,
+                'avatar' => $filePath ?? null
             ]);
 
             toastr()->success('User created successfully.');
@@ -100,10 +105,16 @@ class UserController extends Controller
 
             $user = User::findOrFail($id);
 
+            if ($request->hasFile('avatar')) {
+                $filePath = upload_image($request->avatar, 'uploads/user');
+                delete_file_if_exists($user->getRawOriginal('avatar'));
+            }
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'role' => $request->role,
+                'avatar' => $filePath ?? null
             ]);
 
             if ($request->filled('password')) {
@@ -113,7 +124,7 @@ class UserController extends Controller
             }
 
             toastr()->success('Account updated successfully.');
-            return redirect(route('login'));
+            return redirect(route('admin.user.index'));
 
         } catch (\Throwable $th) {
             toastr()->error('Failed to create.', $th->getMessage());

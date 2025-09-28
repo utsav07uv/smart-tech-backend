@@ -22,7 +22,7 @@
                         </div>
                         <div class="header-element header-logo">
                             <div class="header-theme-logo">
-                                <a href="index.php" class="theme-logo">
+                                <a href="{{ route('home') }}" class="theme-logo">
                                     <img src="{{ asset('smarttech/images/logo.png') }}" class="img-fluid" alt="logo">
                                 </a>
                             </div>
@@ -32,7 +32,8 @@
                                 <div class="search-crap">
                                     <div class="search-content">
                                         <div class="search-box">
-                                            <form action="{{ route('frontend.product.index') }}" method="get" class="search-bar">
+                                            <form action="{{ route('frontend.product.index') }}" method="get"
+                                                class="search-bar">
                                                 <div class="form-search">
 
                                                     <input type="search" name="search" placeholder="Search our catalog"
@@ -111,7 +112,8 @@
                         <div class="search-crap">
                             <div class="search-content">
                                 <div class="search-box">
-                                    <form action="{{ route('frontend.product.index') }}" method="get" class="search-bar">
+                                    <form action="{{ route('frontend.product.index') }}" method="get"
+                                        class="search-bar">
                                         <div class="form-search">
                                             <input type="search" name="search" placeholder="Search our catalog"
                                                 class="search-input" value="{{ request('search') }}">
