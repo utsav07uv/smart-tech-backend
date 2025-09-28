@@ -64,20 +64,6 @@
                                             <h2>{{ $product->name }}</h2>
                                         </div>
                                     </div>
-                                    <div class="product-info">
-                                        <!-- product-rating start -->
-                                        <div class="product-ratting">
-                                            <span class="pro-ratting">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
-                                            </span>
-                                            <span class="spr-badge-caption">No reviews</span>
-                                        </div>
-                                        <!-- product-rating end -->
-                                    </div>
 
                                     @php
                                         $discount = $product->calculateDiscount();
@@ -345,9 +331,31 @@
                                                     <div class="spr-header">
                                                         <h2 class="spr-header-title">Customer reviews</h2>
                                                         <div class="spr-summary rte">
-                                                            <span class="spr-summary-caption">
-                                                                <span class="spr-summary-caption">No reviews yet</span>
-                                                            </span>
+                                                            @if ($product->reviews->isEmpty())
+                                                                <span class="spr-summary-caption">
+                                                                    <span class="spr-summary-caption">No reviews yet</span>
+                                                                </span>
+                                                            @else
+                                                                <div class="list-group mt-4">
+                                                                    @foreach ($product->reviews as $review)
+                                                                        <div class="list-group-item">
+                                                                            <div
+                                                                                class="d-flex justify-content-between align-items-center">
+                                                                                <h6 class="mb-1">{{ $review->user?->name }}</h6>
+                                                                                <small
+                                                                                    class="text-muted">{{ $review->created_at->diffForHumans() }}</small>
+                                                                            </div>
+                                                                            <div class="text-warning mb-2">
+                                                                                @for ($i = 0; $i < $review->rating; $i++)
+                                                                                    <i class="bi bi-star-fill"></i>
+                                                                                @endfor
+                                                                            </div>
+                                                                            <p class="mb-1">{{ $review->comment }}</p>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @endif
+
                                                             @auth
                                                                 <span class="spr-summary-actions">
                                                                     <a href="#add-review" data-bs-toggle="collapse"

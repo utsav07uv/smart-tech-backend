@@ -1,30 +1,23 @@
-@extends('frontend.layouts.app')
-@section('content')
-    <section class="breadcrumb-area">
+<section class="our-blog section-pt">
+    <div class="blog-category">
         <div class="container">
-            <div class="col">
-                <div class="row">
-                    <div class="breadcrumb-index">
-                        <ul class="breadcrumb-ul">
-                            <li class="breadcrumb-li">
-                                <a class="breadcrumb-link" href="{{ route('home') }}">Home</a>
-                            </li>
-                            <li class="breadcrumb-li">
-                                <span class="breadcrumb-text">Reviews</span>
-                            </li>
-                        </ul>
+            <div class="row">
+                <div class="col">
+                    <div class="section-capture">
+                        <div class="section-title">
+                            <div class="section-cont-title">
+                                <h2 data-animate="animate__fadeInUp"><span>Reviews</span></h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="article-area section-ptb">
         <div class="container">
             <div class="row">
                 @if ($productReviews->isNotEmpty())
                     @foreach ($productReviews as $review)
-                        <div class="col">
+                        <div class="col-lg-4">
                             <div class="list-group-item">
                                 <div class="row align-items-center">
                                     <div class="col-md-3">
@@ -62,5 +55,5 @@
                 @endif
             </div>
         </div>
-    </section>
-@endsection
+    </div>
+</section>

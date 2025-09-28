@@ -7,6 +7,6 @@
 @include('frontend.pages.partials.recommended-products')
 @include('frontend.pages.partials.coming-soon-products')
 @include('frontend.pages.partials.custom-banner')
-@include('frontend.pages.partials.blog')
+@include('frontend.pages.partials.reviews')
 @include('frontend.pages.partials.brand-logo')
 @endsection

@@ -200,7 +200,7 @@
                                                     </li>
                                                     <li class="menu-link">
                                                         <a href="{{ route('frontend.blog') }}" class="link-title">
-                                                            <span class="sp-link-title">Blog and Reviews</span>
+                                                            <span class="sp-link-title">Reviews</span>
                                                         </a>
                                                     </li>
                                                     <li class="menu-link">

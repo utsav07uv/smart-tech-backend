@@ -11,6 +11,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Review;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\WishlistItem;
@@ -31,6 +32,7 @@ class WebsiteController extends Controller
             'footerAd' => Ad::where('placement', 2)->inRandomOrder()->first(),
             'recommendedProducts' => Product::withoutGlobalScopes()->recommended()->active()->inRandomOrder()->get(),
             'comingSoonProducts' => Product::withoutGlobalScopes()->coming()->active()->inRandomOrder()->get(),
+            'productReviews' => Review::with('product.seller', 'user:id,name')->latest()->take(3)->get()
         ]);
     }
 
@@ -131,7 +133,10 @@ class WebsiteController extends Controller
 
     public function blog()
     {
-        return view('frontend.pages.blog');
+        $productReviews = Review::with('product.seller', 'user:id,name')->get();
+        return view('frontend.pages.blog', [
+            'productReviews' => $productReviews
+        ]);
     }
 
     public function address()

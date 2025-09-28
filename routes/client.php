@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
    Route::get('/contact', [WebsiteController::class, 'contact'])->name('frontend.contact');
    Route::get('/shipping-address', [WebsiteController::class, 'address'])->name('frontend.address');
    Route::get('/checkout/{order}', [WebsiteController::class, 'checkout'])->name('frontend.checkout');
-   Route::get('/blogs-and-reviews/', [WebsiteController::class, 'blog'])->name('frontend.blog');
+   Route::get('/customer/reviews', [WebsiteController::class, 'blog'])->name('frontend.blog');
 
    Route::get('/wishlist', [WebsiteController::class, 'wishlist'])->name('frontend.product.wishlist');
    Route::get('/cart', [WebsiteController::class, 'cart'])->name('frontend.product.cart');
