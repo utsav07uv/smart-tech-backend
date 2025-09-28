@@ -61,13 +61,9 @@ if (! function_exists('delete_files_if_exists')) {
 }
 
 if (! function_exists('generate_order_number')) {
-    function generate_order_number(User $seller): string
+    function generate_order_number(): string
     {
-        $today = now()->startOfDay();
-
-        $orderCount = Order::where('user_id', $seller->id)
-            ->whereDate('created_at', $today)
-            ->count();
+        $orderCount = Order::count();
 
         $sequence = str_pad($orderCount + 1, 3, '0', STR_PAD_LEFT);
 

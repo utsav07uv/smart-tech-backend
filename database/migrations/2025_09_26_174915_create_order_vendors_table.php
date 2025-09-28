@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('order_vendors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('order_id'); 
+            $table->unsignedBigInteger('vendor_id'); 
             $table->decimal('subtotal', 10, 2); 
             $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('gst', 10, 2)->default(0);

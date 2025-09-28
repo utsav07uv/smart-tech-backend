@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum OrderStatus: string
 {
+    case PAYMENTPENDING = 'payment-pending';
     case PROCESSING = 'processing';
     case SHIPPED = 'shipped';
     case DELIVERED = 'delivered';
@@ -15,6 +16,7 @@ enum OrderStatus: string
     public function label(): string
     {
         return match ($this) {
+            self::PAYMENTPENDING => 'Payment Pending',
             self::PROCESSING => 'Processing',
             self::SHIPPED => 'Shipped',
             self::DELIVERED => 'Delivered',
@@ -27,18 +29,20 @@ enum OrderStatus: string
     public function bgColor(): string
     {
         return match ($this) {
-            self::PROCESSING => 'bg-warning',   
-            self::SHIPPED    => 'bg-info',      
-            self::DELIVERED  => 'bg-success',   
+            self::PAYMENTPENDING => 'bg-warning',
+            self::PROCESSING => 'bg-warning',
+            self::SHIPPED    => 'bg-info',
+            self::DELIVERED  => 'bg-success',
             self::PARTIALLYDELIVERED => 'bg-success',
-            self::CANCELLED  => 'bg-danger',    
-            self::REFUNDED   => 'bg-secondary', 
+            self::CANCELLED  => 'bg-danger',
+            self::REFUNDED   => 'bg-secondary',
         };
     }
 
     public function textColor(): string
     {
         return match ($this) {
+            self::PAYMENTPENDING => 'text-warning',
             self::PROCESSING => 'text-warning',
             self::SHIPPED    => 'text-info',
             self::DELIVERED  => 'text-success',

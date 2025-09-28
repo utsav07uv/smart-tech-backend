@@ -268,11 +268,13 @@
                                         <h6 class="total-title">Total</h6>
                                         <span class="amount total-price" id="total-price">-</span>
                                     </div>
+                                    <p class="text-muted fst-italic">Tick items from cart to order. GST & shipping charges apply.</p>
                                     <div class="proceed-to-checkout">
                                         <form method="POST" action="{{ route('order.store') }}">
                                             @csrf
+                                            <input type="hidden" name="cart_id" value="{{ $cart->id }}">
                                             <input type="hidden" id="cart-item-input" name="cart_item_ids">
-                                            <button type="submit" class="btn btn-style2">Proceed to pay</button>
+                                            <button id="proceed-to-pay-btn" type="submit" class="btn btn-style2" disabled>Proceed to pay</button>
                                         </form>
                                     </div>
                                 </div>
@@ -293,12 +295,16 @@
                         const checked = Array.from(checkboxes).filter(cb => cb.checked);
                         const totalPrice = checked.reduce((acc, cb) => {
                             return acc + parseFloat(cb.dataset.price || 0);
-                        }, 0);
+                        }, 0).toFixed(2);
 
                         const cartItemIds = checked.map(cb => cb.value);
 
                         document.getElementById('total-price').innerText = `AUD ${totalPrice}`;
                         document.getElementById('cart-item-input').value = JSON.stringify(cartItemIds);
+                        const proceedToPayBtn = document.getElementById('proceed-to-pay-btn');
+
+                        (totalPrice > 0) ? proceedToPayBtn.removeAttribute('disabled') : proceedToPayBtn.setAttribute('disabled', true);
+
                         console.log("Total Price:", totalPrice);
                         console.log("Cart Item IDs:", JSON.stringify(cartItemIds));
                     });

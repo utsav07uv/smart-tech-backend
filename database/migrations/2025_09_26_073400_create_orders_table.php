@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); 
             $table->string('order_number')->unique(); 
-            $table->decimal('subtotal', 10, 2); 
+            $table->decimal('subtotal', 10, 2)->default(0); 
             $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('gst', 10, 2)->default(0);
             $table->decimal('shipping_cost', 10, 2)->default(0);

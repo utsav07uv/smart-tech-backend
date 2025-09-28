@@ -9,6 +9,7 @@ class OrderVendor extends Model
 {
     protected $fillable = [
         'order_id',
+        'vendor_id',
         'subtotal',
         'discount_amount',
         'gst',
@@ -28,6 +29,11 @@ class OrderVendor extends Model
     public function order()
     {
         $this->belongsTo(Order::class, 'order_id', 'id');
+    }
+
+    public function orderVendor()
+    {
+        $this->belongsTo(User::class, 'vendor_id', 'id');
     }
 
     public function orderItems()

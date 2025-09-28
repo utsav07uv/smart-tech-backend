@@ -348,97 +348,102 @@
                                                             <span class="spr-summary-caption">
                                                                 <span class="spr-summary-caption">No reviews yet</span>
                                                             </span>
-                                                            <span class="spr-summary-actions">
-                                                                <a href="#add-review" data-bs-toggle="collapse"
-                                                                    class="spr-summary-actions-newreview">Write a review</a>
-                                                            </span>
+                                                            @auth
+                                                                <span class="spr-summary-actions">
+                                                                    <a href="#add-review" data-bs-toggle="collapse"
+                                                                        class="spr-summary-actions-newreview">Write a review</a>
+                                                                </span>
+                                                            @endauth
                                                         </div>
                                                         <!-- product-rating end -->
                                                     </div>
-                                                    <div class="spr-content">
-                                                        <!-- spar-from start -->
-                                                        <div class="spr-form collapse" id="add-review">
-                                                            <form method="POST" class="new-review-form"
-                                                                action="{{ route('review.store') }}">
-                                                                @csrf
+                                                    @auth
+                                                        <div class="spr-content">
 
-                                                                <input type="hidden" name="user_id"
-                                                                    value="{{ auth()->id() }}">
-                                                                <input type="hidden" name="product_id"
-                                                                    value="{{ $product->id }}">
-                                                                <x-input-error :messages="$errors->get('user_id')"
-                                                                    class="mt-2 text-danger" />
-                                                                <x-input-error :messages="$errors->get('product_id')"
-                                                                    class="mt-2 text-danger" />
+                                                            <div class="spr-form collapse" id="add-review">
+                                                                <form method="POST" class="new-review-form"
+                                                                    action="{{ route('review.store') }}">
+                                                                    @csrf
+
+                                                                    <input type="hidden" name="user_id"
+                                                                        value="{{ auth()->id() }}">
+                                                                    <input type="hidden" name="product_id"
+                                                                        value="{{ $product->id }}">
+                                                                    <x-input-error :messages="$errors->get('user_id')"
+                                                                        class="mt-2 text-danger" />
+                                                                    <x-input-error :messages="$errors->get('product_id')"
+                                                                        class="mt-2 text-danger" />
 
 
-                                                                <h3 class="spr-form-title">Write a review</h3>
-                                                                <fieldset class="spr-form-contact">
-                                                                    <div class="spr-form-contact-name">
-                                                                        <label class="spr-form-label">Name</label>
-                                                                        <input type="text" name="name"
-                                                                            value="{{ auth()->user()->name }}"
-                                                                            class="spr-form-input spr-form-input-text "
-                                                                            placeholder="Enter your name" disabled>
-                                                                    </div>
-                                                                    <div class="spr-form-contact-email">
-                                                                        <label class="spr-form-label">Email address</label>
-                                                                        <input type="email" name="email"
-                                                                            value="{{ auth()->user()->email }}"
-                                                                            class="spr-form-input spr-form-input-email"
-                                                                            placeholder="Enter email address" disabled>
-                                                                    </div>
-                                                                </fieldset>
-                                                                <fieldset class="spr-form-review">
-                                                                    <div class="spr-form-review-rating">
-                                                                        <label class="spr-form-label">Rating</label>
-                                                                        <div class="product-ratting">
-                                                                            <span class="pro-ratting">
-                                                                                <i class="fas fa-star"></i>
-                                                                                <i class="fas fa-star"></i>
-                                                                                <i class="fas fa-star"></i>
-                                                                                <i class="fas fa-star"></i>
-                                                                                <i class="fas fa-star-half-alt"></i>
-                                                                            </span>
+                                                                    <h3 class="spr-form-title">Write a review</h3>
+                                                                    <fieldset class="spr-form-contact">
+                                                                        <div class="spr-form-contact-name">
+                                                                            <label class="spr-form-label">Name</label>
+                                                                            <input type="text" name="name"
+                                                                                value="{{ auth()->user()->name }}"
+                                                                                class="spr-form-input spr-form-input-text "
+                                                                                placeholder="Enter your name" disabled>
                                                                         </div>
                                                                         <div class="spr-form-contact-email">
-                                                                            <input type="number" max="5" min="0"
-                                                                                name="rating"
-                                                                                class="spr-form-input spr-form-input-email">
-                                                                            <x-input-error
-                                                                                :messages="$errors->get('rating')"
-                                                                                class="mt-2 text-danger" />
-
+                                                                            <label class="spr-form-label">Email address</label>
+                                                                            <input type="email" name="email"
+                                                                                value="{{ auth()->user()->email }}"
+                                                                                class="spr-form-input spr-form-input-email"
+                                                                                placeholder="Enter email address" disabled>
                                                                         </div>
-                                                                    </div>
+                                                                    </fieldset>
+                                                                    <fieldset class="spr-form-review">
+                                                                        <div class="spr-form-review-rating">
+                                                                            <label class="spr-form-label">Rating</label>
+                                                                            <div class="product-ratting">
+                                                                                <span class="pro-ratting">
+                                                                                    <i class="fas fa-star"></i>
+                                                                                    <i class="fas fa-star"></i>
+                                                                                    <i class="fas fa-star"></i>
+                                                                                    <i class="fas fa-star"></i>
+                                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                                </span>
+                                                                            </div>
+                                                                            <div class="spr-form-contact-email">
+                                                                                <input type="number" max="5" min="0"
+                                                                                    name="rating"
+                                                                                    class="spr-form-input spr-form-input-email">
+                                                                                <x-input-error
+                                                                                    :messages="$errors->get('rating')"
+                                                                                    class="mt-2 text-danger" />
 
-                                                                    <div class="spr-form-review-body">
-                                                                        <label class="spr-form-label">Comment
-                                                                            <span>
-                                                                                <span
-                                                                                    class="spr-form-review-body-charactersremaining">(100)</span>
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="spr-form-input">
-                                                                            <textarea name="comment"
-                                                                                class="spr-form-input spr-form-input-textarea"
-                                                                                placeholder="Write your comments here"
-                                                                                rows="5"></textarea>
-                                                                            <x-input-error
-                                                                                :messages="$errors->get('comment')"
-                                                                                class="mt-2 text-danger" />
-
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </fieldset>
-                                                                <fieldset class="spr-form-actions">
-                                                                    <button type="submit"
-                                                                        class="spr-button spr-button-primary button button-primary btn btn-primary">Submit
-                                                                        Review</button>
-                                                                </fieldset>
-                                                            </form>
+
+                                                                        <div class="spr-form-review-body">
+                                                                            <label class="spr-form-label">Comment
+                                                                                <span>
+                                                                                    <span
+                                                                                        class="spr-form-review-body-charactersremaining">(100)</span>
+                                                                                </span>
+                                                                            </label>
+                                                                            <div class="spr-form-input">
+                                                                                <textarea name="comment"
+                                                                                    class="spr-form-input spr-form-input-textarea"
+                                                                                    placeholder="Write your comments here"
+                                                                                    rows="5"></textarea>
+                                                                                <x-input-error
+                                                                                    :messages="$errors->get('comment')"
+                                                                                    class="mt-2 text-danger" />
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                    <fieldset class="spr-form-actions">
+                                                                        <button type="submit"
+                                                                            class="spr-button spr-button-primary button button-primary btn btn-primary">Submit
+                                                                            Review</button>
+                                                                    </fieldset>
+                                                                </form>
+                                                            </div>
+
                                                         </div>
-                                                    </div>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
