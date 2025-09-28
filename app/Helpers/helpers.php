@@ -67,7 +67,7 @@ if (! function_exists('generate_order_number')) {
 
         $sequence = str_pad($orderCount + 1, 3, '0', STR_PAD_LEFT);
 
-        return "#ORD-" . now()->format('ymd') . "-" . $sequence;
+        return "ORD-" . now()->format('ymd') . "-" . $sequence;
     }
 }
 

@@ -3363,8 +3363,8 @@ ul.pro-submit li.label-info label.box-area input.cust-checkbox:checked ~ span.cu
     padding: 20px;
     display: flex;
     align-items: flex-start;
-    border-bottom: 1px solid var(--border-color);
 }
+
 .check-pro ul.check-ul li .check-pro-img {
     width: 25%;
 }

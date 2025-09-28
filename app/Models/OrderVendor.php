@@ -28,17 +28,17 @@ class OrderVendor extends Model
 
     public function order()
     {
-        $this->belongsTo(Order::class, 'order_id', 'id');
+        return $this->belongsTo(Order::class, 'order_id', 'id');
     }
 
-    public function orderVendor()
+    public function vendor()
     {
-        $this->belongsTo(User::class, 'vendor_id', 'id');
+        return $this->belongsTo(User::class, 'vendor_id', 'id');
     }
 
     public function orderItems()
     {
-        $this->hasMany(OrderItem::class, 'order_vendor_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_vendor_id', 'id');
     }
 
     public function totalPrice() {

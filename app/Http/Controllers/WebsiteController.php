@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Ad;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -126,6 +127,28 @@ class WebsiteController extends Controller
     public function address()
     {
         return view('frontend.pages.address');
+    }
+
+    public function checkout(string $orderNumber)
+    {
+        $order = Order::where([
+            'order_number' => $orderNumber,
+            'user_id' => Auth::id(),
+        ])
+            ->with([
+                'orderVendors.vendor',
+                'orderVendors.orderItems.product'
+            ])
+            ->firstOrFail();
+
+
+        if (!$order) {
+            return back()->withError('No oder found.');
+        }
+
+        return view('frontend.pages.checkout', [
+            'order' => $order
+        ]);
     }
 
     public function updateProfile(Request $request): RedirectResponse

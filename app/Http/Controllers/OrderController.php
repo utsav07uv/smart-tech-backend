@@ -17,8 +17,11 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
+        $order = collect();
+
         try {
-            DB::transaction(function () use ($request) {
+            
+            DB::transaction(function () use ($request, &$order) {
 
                 $user = Auth::user();
 
@@ -119,7 +122,8 @@ class OrderController extends Controller
             });
 
             toastr()->success('Order placed successfully.');
-            return back();
+
+            return redirect(route('frontend.checkout', $order->order_number));
         } catch (\Throwable $th) {
             toastr()->error($th->getMessage());
             return back();
