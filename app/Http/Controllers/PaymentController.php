@@ -6,7 +6,6 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
 use App\Models\Payment;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +14,17 @@ use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
+    public function index()
+    {
+        $payments = Payment::query()
+            ->get();
+
+
+        return view('backend.payment.index', [
+            'payments' => $payments
+        ]);
+    }
+
     public function store(Request $request)
     {
         try {
@@ -29,19 +39,19 @@ class PaymentController extends Controller
                     throw new \Exception("Order not found.");
                 }
 
-                foreach ($order->orderVendors as $orderVendor) {
-                    $orderVendor->payments()->create([
-                        'user_id'      => $user->id,
-                        'order_number'        => $order->order_number,
-                        'method'           => 'cod',
-                        'amount'        => $orderVendor->total,
-                        'status' => PaymentStatus::PENDING
-                    ]);
+                Payment::create([
+                    'order_id'      => $order->id,
+                    'user_id'      => $user->id,
+                    'order_number'        => $order->order_number,
+                    'method'           => 'cod',
+                    'amount'        => $order->total,
+                    'status' => PaymentStatus::PENDING
+                ]);
 
-                    $orderVendor->update([
-                        'status' => OrderStatus::PROCESSING
-                    ]);
-                }
+
+                $order->orderVendors()->update([
+                    'status' => OrderStatus::PROCESSING
+                ]);
 
                 $order->update([
                     'status' => OrderStatus::PROCESSING
@@ -60,7 +70,8 @@ class PaymentController extends Controller
     public function stripePost(Request $request)
     {
         try {
-            $order = Order::find($request->order_id);
+            
+            $order = Order::findOrFail($request->order_id);
 
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
@@ -71,13 +82,17 @@ class PaymentController extends Controller
                 "description" => "Payment for order {$order->order_number} by {$order->user->name}"
             ]);
 
+
             if ($charge) {
                 Payment::create([
+                    'order_id'      => $order->id,
                     'user_id'      => Auth::id(),
                     'order_number'        => $order->order_number,
                     'method'           => 'card',
                     'amount'        => $order->total,
-                    'status' => PaymentStatus::COMPLETED
+                    'status' => PaymentStatus::COMPLETED,
+                    'transaction_id' => $charge->id,
+                    'receipt' => $charge->receipt_url
                 ]);
 
                 $order->update([
@@ -96,6 +111,7 @@ class PaymentController extends Controller
             ]);
         } catch (\Throwable $th) {
             toastr()->error('Payment Failed!');
+            toastr()->error($th->getMessage());
             return back();
         }
     }

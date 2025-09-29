@@ -69,7 +69,7 @@
                                 @csrf
                                 <input type="input" class="form-control" name="name" placeholder="Enter Name">
 
-                                <input type='hidden' name='order_id' id='{{ $order->id }}'>
+                                <input type='hidden' name='order_id' value='{{ $order->id }}'>
                                 <input type='hidden' name='stripeToken' id='stripe-token-id'>
                                 <br>
                                 <div id="card-element" class="form-control"></div>
@@ -77,7 +77,7 @@
                                     style="margin-top: 20px; width: 100%;padding: 7px;" onclick="createToken()">PAY
                                     AUD {{ $order->total }}
                                 </button>
-                                <form>
+                            <form>
                         </div>
                         <div class="order-area">
                             <h2 data-animate="animate__fadeInUp">Your order</h2>
@@ -198,7 +198,7 @@
 
                     if (typeof result.token != 'undefined') {
                         document.getElementById("stripe-token-id").value = result.token.id;
-                        document.getElementById('checkout-form').submit();
+                        document.getElementById('card-checkout-form').submit();
                     }
                 });
             }

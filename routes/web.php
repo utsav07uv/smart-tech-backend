@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerController;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->as('admin.')->group(
     Route::post('user/login/approve/{id}', [UserController::class, 'approve'])->name('user.login.approve');
     Route::post('user/login/disable/{id}', [UserController::class, 'disable'])->name('user.login.disable');
     Route::resource('user', UserController::class)->names('user');
+    Route::resource('payment', PaymentController::class)->names('payment');
 });
 
 require __DIR__.'/auth.php';

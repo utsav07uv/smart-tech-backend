@@ -40,7 +40,7 @@
                         Orders
                     </x-nav-link>
 
-                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.index')">
+                    <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
                         Payments
                     </x-nav-link>
 

@@ -16,7 +16,8 @@ class Payment extends Model
         'currency',
         'transaction_id',
         'meta',
-        'status'
+        'status',
+        'receipt'
     ];
 
     protected function casts(): array

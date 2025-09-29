@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');  
             $table->string('order_number'); 
             $table->string('method');
+            $table->string('receipt')->nullable();
             $table->decimal('amount', 10, 2);
             $table->string('currency', 10)->default('AUD');
             $table->string('transaction_id')->nullable();
