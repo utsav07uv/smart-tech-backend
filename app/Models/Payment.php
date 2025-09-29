@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     protected $fillable = [
-        'order_vendor_id',
         'user_id',
+        'order_id',
         'order_number',
         'method',
         'amount',

@@ -49,4 +49,6 @@ Route::middleware('auth')->group(function () {
    Route::resource('address', controller: AddressController::class)->names('address');
    Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
    Route::resource('payment', PaymentController::class)->names('payment');
+
+   Route::post('/stripe',[PaymentController::class, 'stripePost'])->name('stripe.post');
 });

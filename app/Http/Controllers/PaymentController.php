@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Models\Order;
+use App\Models\Payment;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Stripe\Charge;
+use Stripe\Stripe;
 
 class PaymentController extends Controller
 {
@@ -46,9 +50,52 @@ class PaymentController extends Controller
 
             toastr()->success('Order confirmed successfully.');
 
-            // return redirect(route('frontend.checkout.success', $order->order_number));
+            return redirect(route('frontend.checkout', $order->order_number));
         } catch (\Throwable $th) {
             toastr()->error($th->getMessage());
+            return back();
+        }
+    }
+
+    public function stripePost(Request $request)
+    {
+        try {
+            $order = Order::find($request->order_id);
+
+            Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+            $charge = Charge::create([
+                "amount" => $order->total * 100,
+                "currency" => "aud",
+                "source" => $request->stripeToken,
+                "description" => "Payment for order {$order->order_number} by {$order->user->name}"
+            ]);
+
+            if ($charge) {
+                Payment::create([
+                    'user_id'      => Auth::id(),
+                    'order_number'        => $order->order_number,
+                    'method'           => 'card',
+                    'amount'        => $order->total,
+                    'status' => PaymentStatus::COMPLETED
+                ]);
+
+                $order->update([
+                    'status' => OrderStatus::PROCESSING,
+                ]);
+
+                $order->orderVendors()->update([
+                    'status' => OrderStatus::PROCESSING,
+                ]);
+            }
+
+            toastr()->success('Payment Successful!');
+
+            return view('frontend.pages.checkout-success', [
+                'orderNumber' => $order->order_number,
+            ]);
+        } catch (\Throwable $th) {
+            toastr()->error('Payment Failed!');
             return back();
         }
     }
