@@ -118,8 +118,13 @@
                                                             class="add-wishlist" data-animate="animate__fadeInUp">Add to cart</a>
                                                     </form>
 
-                                                    <a href="checkout-style1.html" class="add-wishlist"
-                                                        data-animate="animate__fadeInUp">Buy now</a>
+                                                    <form method="POST" action="{{ route('order.buy') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <a href="{{ route('order.buy') }}"
+                                                            onclick="event.preventDefault();this.closest('form').submit();"
+                                                            class="add-wishlist" data-animate="animate__fadeInUp">Buy now</a>
+                                                    </form>
 
                                                     <form method="POST"
                                                         action="{{ route('frontend.product.wishlist.destroy', $product->id) }}">

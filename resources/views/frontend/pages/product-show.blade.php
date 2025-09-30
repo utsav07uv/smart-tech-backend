@@ -169,10 +169,15 @@
                                                 </div>
                                             </form>
 
-                                            <a href="cart-empty.html" class="btn btn-cart btn-theme">
-                                                <span>Buy now</span>
-                                            </a>
-
+                                            <form method="POST" action="{{ route('order.buy') }}">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <a href="{{ route('order.buy') }}"
+                                                    onclick="event.preventDefault();this.closest('form').submit();"
+                                                    class="btn btn-cart btn-theme">
+                                                    <span>Buy now</span>
+                                                </a>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="product-info">

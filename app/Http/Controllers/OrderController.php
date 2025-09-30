@@ -10,6 +10,7 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\OrderVendor;
+use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -141,6 +142,89 @@ class OrderController extends Controller
             });
 
             toastr()->success('Order placed successfully.');
+
+            return redirect(route('frontend.checkout', $order->order_number));
+        } catch (\Throwable $th) {
+            toastr()->error($th->getMessage());
+            return back();
+        }
+    }
+
+    public function buy(Request $request)
+    {
+        $order = collect();
+
+        try {
+
+            DB::transaction(function () use ($request, &$order) {
+
+                $user = Auth::user();
+
+                if (! $user->defaultAddress) {
+                    throw new \Exception("No shipping address found.");
+                }
+
+                if (! $request->has('product_id')) {
+                    throw new \Exception("No product provided.");
+                }
+
+                $product = Product::lockForUpdate()->findOrFail($request->product_id);
+
+                if (!$product) {
+                    throw new \Exception("Product not found.");
+                }
+
+                $subtotal = $product->price;
+                $discount_amount = $product->calculateDiscount();
+                $total = $subtotal - $discount_amount;
+
+                $order = Order::create([
+                    'user_id'             => $user->id,
+                    'order_number'        => generate_order_number(),
+                    'shipping_address_id' => $user->defaultAddress->id,
+                    'status'              => OrderStatus::PAYMENTPENDING,
+                    'order_at'            => now(),
+                    'subtotal'            => $subtotal,
+                    'discount_amount'     => $discount_amount,
+                    'shipping_cost'       => 10,
+                    'gst'                 => 0.1 * $total,
+                    'total'               => $total + 0.1 * $total + 10,
+                ]);
+
+                $orderVendor = $order->orderVendors()->create([
+                    'vendor_id'       => $product->user_id,
+                    'subtotal'        => $subtotal,
+                    'discount_amount' => $discount_amount,
+                    'gst'             => 0.1 * $total,
+                    'shipping_cost'   => 10,
+                    'total'           => $total + 0.1 * $total + 10,
+                    'status'          => OrderStatus::PAYMENTPENDING
+                ]);
+
+                if ($product->stock < 1) {
+                    throw new \Exception("Insufficient stock for product: {$product->name}");
+                }
+
+                OrderItem::create([
+                    'order_vendor_id' => $orderVendor->id,
+                    'product_id'      => $product->id,
+                    'quantity'        => 1,
+                    'price'           => $subtotal,
+                    'discount'        => $product->discount,
+                    'total'           => $total,
+                ]);
+
+                StockMovement::create([
+                    'product_id' => $product->id,
+                    'type'       => StockMovementType::OUT->value,
+                    'quantity'   => 1,
+                    'reference'  => $order->order_number,
+                    'note'       => 'Sold to user',
+                    'user_id'    => $user->id,
+                ]);
+
+                $product->decrement('stock', 1);
+            });
 
             return redirect(route('frontend.checkout', $order->order_number));
         } catch (\Throwable $th) {

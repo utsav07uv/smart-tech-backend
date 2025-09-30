@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
    Route::put('/address/{id}/default', [AddressController::class, 'markAsDefault'])->name('frontend.address.default');
    Route::resource('address', controller: AddressController::class)->names('address');
    Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
+   Route::post('order/buy', [OrderController::class, 'buy'])->name('order.buy');
    Route::resource('payment', PaymentController::class)->names('payment');
 
    Route::post('/stripe',[PaymentController::class, 'stripePost'])->name('stripe.post');
