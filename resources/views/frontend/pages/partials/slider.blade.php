@@ -16,7 +16,7 @@
                                             <span>LG 4K UHD Smart TV </span>
                                         </div>
                                         <h2><span>Starting price form $2400</span></h2>
-                                        <a href="{{ route('frontend.product.index', ['search' => 'LG 4K UHD Smart TV']) }}" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.show', 'lg-65-nano80a-ai-led-4k-uhd-smart-tv-2025') }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                             <span>Google pixel pro 10XL</span>
                                         </div>
                                         <h2><span>Starting price from $1997</span></h2>
-                                        <a href="{{ route('frontend.product.index', ['search' => 'Google Pixel']) }}" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.show', 'google-pixel-10-pro-xl-5g-256gb-moonstone') }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -47,10 +47,10 @@
                                 <div class="slider-text-content">
                                     <div class="slider-text-info slider-content-right slider-text-right">
                                         <div class="slider-subtitle">
-                                            <span>Asus TUF Gaming F16</span>
+                                            <span>Asus VivoBook 15.6</span>
                                         </div>
-                                        <h2><span>Starting price from $1799</span></h2>
-                                        <a href="{{ route('frontend.product.index', ['search' => 'Asus TUF Gaming']) }}" class="btn btn-style">Shop now</a>
+                                        <h2><span>Starting price from $1199</span></h2>
+                                        <a href="{{ route('frontend.product.show', ['search' => 'asus-vivobook-156-full-hd-thin-light-laptop-1tbintel-core-i5']) }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
