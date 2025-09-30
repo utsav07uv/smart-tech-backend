@@ -50,7 +50,7 @@
                                             <span>Asus VivoBook 15.6</span>
                                         </div>
                                         <h2><span>Starting price from $1199</span></h2>
-                                        <a href="{{ route('frontend.product.show', ['search' => 'asus-vivobook-156-full-hd-thin-light-laptop-1tbintel-core-i5']) }}" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.show', 'asus-vivobook-156-full-hd-thin-light-laptop-1tbintel-core-i5') }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
