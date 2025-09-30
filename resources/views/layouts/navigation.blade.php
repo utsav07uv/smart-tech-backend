@@ -16,9 +16,11 @@
                         Dashboard
                     </x-nav-link>
 
-                    <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
-                        Users
-                    </x-nav-link>
+                    @if (auth()->user()->role->value === 'admin')
+                        <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
+                            Users
+                        </x-nav-link>
+                    @endif
 
                     <x-nav-link :href="route('ad.index')" :active="request()->routeIs('ad.index')">
                         Ads
@@ -40,10 +42,11 @@
                         Orders
                     </x-nav-link>
 
-                    <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
-                        Payments
-                    </x-nav-link>
-
+                    @if (auth()->user()->role->value === 'admin')
+                        <x-nav-link :href="route('payment.index')" :active="request()->routeIs('payment.index')">
+                            Payments
+                        </x-nav-link>
+                    @endif
 
                 </div>
 
@@ -122,10 +125,8 @@
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}

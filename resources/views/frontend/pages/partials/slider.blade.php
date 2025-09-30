@@ -16,7 +16,7 @@
                                             <span>LG 4K UHD Smart TV </span>
                                         </div>
                                         <h2><span>Starting price form $2400</span></h2>
-                                        <a href="product-details.php" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.index', ['search' => 'LG 4K UHD Smart TV']) }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                             <span>Google pixel pro 10XL</span>
                                         </div>
                                         <h2><span>Starting price from $1997</span></h2>
-                                        <a href="product-details.php" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.index', ['search' => 'Google Pixel']) }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                             <span>Asus TUF Gaming F16</span>
                                         </div>
                                         <h2><span>Starting price from $1799</span></h2>
-                                        <a href="product-details.php" class="btn btn-style">Shop now</a>
+                                        <a href="{{ route('frontend.product.index', ['search' => 'Asus TUF Gaming']) }}" class="btn btn-style">Shop now</a>
                                     </div>
                                 </div>
                             </div>
